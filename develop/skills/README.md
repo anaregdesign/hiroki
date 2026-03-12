@@ -13,9 +13,9 @@ Bootstrap these skills first when the repository needs the full React Router + P
 ```text
 Bootstrap these three agent skills into this repository under `develop/skills/`:
 
-- https://github.com/anaregdesign/skills/tree/main/skills/development/enforce-react-spa-architecture
-- https://github.com/anaregdesign/skills/tree/main/skills/development/azure-spa-clean-architecture-bootstrap
-- https://github.com/anaregdesign/skills/tree/main/skills/development/spec-driven-workflow
+- https://github.com/anaregdesign/hiroki/tree/main/develop/skills/enforce-react-spa-architecture
+- https://github.com/anaregdesign/hiroki/tree/main/develop/skills/azure-spa-clean-architecture-bootstrap
+- https://github.com/anaregdesign/hiroki/tree/main/develop/skills/spec-driven-workflow
 
 Requirements:
 - Create `develop/skills/enforce-react-spa-architecture/`
@@ -42,9 +42,9 @@ Requirements:
 ```text
 Use `$skill-installer` to install these three skills into my personal Codex skills directory (`$CODEX_HOME/skills` or `~/.codex/skills`) from this repository:
 
-- https://github.com/anaregdesign/skills/tree/main/skills/development/enforce-react-spa-architecture
-- https://github.com/anaregdesign/skills/tree/main/skills/development/azure-spa-clean-architecture-bootstrap
-- https://github.com/anaregdesign/skills/tree/main/skills/development/spec-driven-workflow
+- https://github.com/anaregdesign/hiroki/tree/main/develop/skills/enforce-react-spa-architecture
+- https://github.com/anaregdesign/hiroki/tree/main/develop/skills/azure-spa-clean-architecture-bootstrap
+- https://github.com/anaregdesign/hiroki/tree/main/develop/skills/spec-driven-workflow
 
 Requirements:
 - Install `enforce-react-spa-architecture` first, then `azure-spa-clean-architecture-bootstrap`, then `spec-driven-workflow`.
@@ -69,9 +69,9 @@ Requirements:
 ```text
 Copy these three skills into the current project's `.claude/skills/` directory:
 
-- https://github.com/anaregdesign/skills/tree/main/skills/development/enforce-react-spa-architecture
-- https://github.com/anaregdesign/skills/tree/main/skills/development/azure-spa-clean-architecture-bootstrap
-- https://github.com/anaregdesign/skills/tree/main/skills/development/spec-driven-workflow
+- https://github.com/anaregdesign/hiroki/tree/main/develop/skills/enforce-react-spa-architecture
+- https://github.com/anaregdesign/hiroki/tree/main/develop/skills/azure-spa-clean-architecture-bootstrap
+- https://github.com/anaregdesign/hiroki/tree/main/develop/skills/spec-driven-workflow
 
 Requirements:
 - Create `.claude/skills/enforce-react-spa-architecture/`
