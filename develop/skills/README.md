@@ -11,16 +11,16 @@ Bootstrap these skills first when the repository needs the full React Router + P
 ### GitHub Copilot
 
 ```text
-Bootstrap these three agent skills into this repository under `develop/skills/`:
+Bootstrap these three agent skills into this repository under `.github/skills/`:
 
 - https://github.com/anaregdesign/hiroki/tree/main/develop/skills/enforce-react-spa-architecture
 - https://github.com/anaregdesign/hiroki/tree/main/develop/skills/azure-spa-clean-architecture-bootstrap
 - https://github.com/anaregdesign/hiroki/tree/main/develop/skills/spec-driven-workflow
 
 Requirements:
-- Create `develop/skills/enforce-react-spa-architecture/`
-- Create `develop/skills/azure-spa-clean-architecture-bootstrap/`
-- Create `develop/skills/spec-driven-workflow/`
+- Create `.github/skills/enforce-react-spa-architecture/`
+- Create `.github/skills/azure-spa-clean-architecture-bootstrap/`
+- Create `.github/skills/spec-driven-workflow/`
 - Copy the complete contents of each source directory exactly, including `SKILL.md`, `agents/openai.yaml`, `references/`, `assets/`, and `scripts/` if present.
 - Install `enforce-react-spa-architecture` first, then `azure-spa-clean-architecture-bootstrap`, then `spec-driven-workflow`.
 - Treat `enforce-react-spa-architecture` as the base app-code architecture skill.
@@ -34,7 +34,7 @@ Requirements:
   - `enforce-react-spa-architecture` when the task changes React Router + Prisma app-code architecture, UI boundaries, or verification
   - `azure-spa-clean-architecture-bootstrap` when the task changes Azure hosting, identity, secretless config, IaC, or release automation
 - In `.github/copilot-instructions.md`, instruct Copilot to combine the skills when a task spans multiple concerns, using `enforce-react-spa-architecture` as the base and `azure-spa-clean-architecture-bootstrap` only for Azure-specific deltas.
-- When finished, list the installed files under `develop/skills/` and show the final `.github/copilot-instructions.md`.
+- When finished, list the installed files under `.github/skills/` and show the final `.github/copilot-instructions.md`.
 ```
 
 ### Codex
