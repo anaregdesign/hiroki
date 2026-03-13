@@ -30,7 +30,7 @@ Requirements:
 - If destination folders already exist, replace or sync them to the repository version.
 - Create or update `.github/copilot-instructions.md`.
 - In `.github/copilot-instructions.md`, instruct Copilot to call:
-  - `spec-driven-workflow` when the task needs `/doc/spec/`, `/doc/plan.md`, ordered Section/Subsection planning, or deliberate commit-unit planning
+  - `spec-driven-workflow` when the task needs `/docs/spec/`, `/docs/plan.md`, ordered Section/Subsection planning, or deliberate commit-unit planning
   - `enforce-react-spa-architecture` when the task changes React Router + Prisma app-code architecture, UI boundaries, or verification
   - `azure-spa-clean-architecture-bootstrap` when the task changes Azure hosting, identity, secretless config, IaC, or release automation
 - In `.github/copilot-instructions.md`, instruct Copilot to combine the skills when a task spans multiple concerns, using `enforce-react-spa-architecture` as the base and `azure-spa-clean-architecture-bootstrap` only for Azure-specific deltas.
@@ -51,7 +51,7 @@ Requirements:
 - Treat `enforce-react-spa-architecture` as the base architecture skill and `azure-spa-clean-architecture-bootstrap` as its Azure extension.
 - Treat `spec-driven-workflow` as an independent spec and planning skill.
 - Use the full 3-skill set after install:
-  - `spec-driven-workflow` for `/doc/spec/`, `/doc/plan.md`, ordered Section/Subsection planning, and deliberate commit-unit planning
+  - `spec-driven-workflow` for `/docs/spec/`, `/docs/plan.md`, ordered Section/Subsection planning, and deliberate commit-unit planning
   - `enforce-react-spa-architecture` for React Router + Prisma app-code architecture, UI boundaries, and verification
   - `azure-spa-clean-architecture-bootstrap` only for Azure-specific hosting, identity, secretless config, IaC, and release automation deltas
 - When a task spans multiple concerns, combine the skills deliberately:
@@ -83,7 +83,7 @@ Requirements:
 - Treat `spec-driven-workflow` as an independent spec and planning skill.
 - Create or update `CLAUDE.md` at the repository root.
 - In `CLAUDE.md`, instruct Claude Code to use:
-  - `spec-driven-workflow` when the task needs `/doc/spec/`, `/doc/plan.md`, ordered Section/Subsection planning, or deliberate commit-unit planning
+  - `spec-driven-workflow` when the task needs `/docs/spec/`, `/docs/plan.md`, ordered Section/Subsection planning, or deliberate commit-unit planning
   - `enforce-react-spa-architecture` when the task changes React Router + Prisma app-code architecture, UI boundaries, or verification
   - `azure-spa-clean-architecture-bootstrap` when the task changes Azure hosting, identity, secretless config, IaC, or release automation
 - In `CLAUDE.md`, instruct Claude Code to combine the skills when a task spans multiple concerns, using `enforce-react-spa-architecture` as the base and `azure-spa-clean-architecture-bootstrap` only for Azure-specific deltas.
@@ -149,12 +149,12 @@ Role:
 - Documents spec-first planning flow and shared commit-log workflow for feature work.
 
 Use this skill for:
-- writing complete user-visible requirements under `/doc/spec/`
-- creating and maintaining a temporary execution tracker in `/doc/plan.md`
+- writing complete user-visible requirements under `/docs/spec/`
+- creating and maintaining a temporary execution tracker in `/docs/plan.md`
 - structuring that plan with ordered `Section`, `Subsection`, and optional `Sub-subsection` blocks only as needed
 - breaking work into the shortest meaningful plan checkbox steps
 - keeping commit history in deliberate work units and using Conventional Commits when the repository uses them
-- checking off work as it completes and deleting `/doc/plan.md` when all tracked work is done
+- checking off work as it completes and deleting `/docs/plan.md` when all tracked work is done
 - keeping the temporary plan aligned with the durable spec
 
 This skill is independent:
@@ -181,5 +181,5 @@ Interpretation:
 
 - Use only `enforce-react-spa-architecture` when you need code architecture and implementation guardrails for a React Router + Prisma v7 app without Azure-specific delivery concerns.
 - Use both skills together when the same app must also ship on Azure or needs Azure-specific identity, SQL, config, IaC, or release workflow guidance.
-- Use `spec-driven-workflow` when you want spec-first execution with `/doc/spec/` and a temporary `/doc/plan.md` that is deleted after the tracked work finishes.
+- Use `spec-driven-workflow` when you want spec-first execution with `/docs/spec/` and a temporary `/docs/plan.md` that is deleted after the tracked work finishes.
 - Do not install `azure-spa-clean-architecture-bootstrap` by itself.
