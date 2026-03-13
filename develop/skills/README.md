@@ -30,10 +30,13 @@ Requirements:
 - If destination folders already exist, replace or sync them to the repository version.
 - Create or update `.github/copilot-instructions.md`.
 - In `.github/copilot-instructions.md`, instruct Copilot to call:
-  - `spec-driven-workflow` when the task needs `/docs/spec/`, `/docs/plan.md`, ordered Section/Subsection planning, or deliberate commit-unit planning
-  - `enforce-react-spa-architecture` when the task changes React Router + Prisma app-code architecture, UI boundaries, or verification
-  - `azure-spa-clean-architecture-bootstrap` when the task changes Azure hosting, identity, secretless config, IaC, or release automation
-- In `.github/copilot-instructions.md`, instruct Copilot to combine the skills when a task spans multiple concerns, using `enforce-react-spa-architecture` as the base and `azure-spa-clean-architecture-bootstrap` only for Azure-specific deltas.
+  - `spec-driven-workflow` first for non-trivial application-development work, even when the user asks directly for implementation, to create or update `/docs/spec/`, maintain a temporary `/docs/plan.md`, and drive the execution sequence from that workflow
+  - `enforce-react-spa-architecture` after `spec-driven-workflow` when the task changes React Router + Prisma app-code architecture, UI boundaries, or verification
+  - `azure-spa-clean-architecture-bootstrap` only when the task also changes Azure hosting, identity, secretless config, IaC, or release automation, and only as an Azure-specific extension alongside the architecture skill
+- In `.github/copilot-instructions.md`, instruct Copilot to combine the skills by default in this order for non-trivial work:
+  - start with `spec-driven-workflow`
+  - add `enforce-react-spa-architecture` when app-code architecture guidance is needed
+  - add `azure-spa-clean-architecture-bootstrap` only for Azure-specific deltas
 - When finished, list the installed files under `.github/skills/` and show the final `.github/copilot-instructions.md`.
 ```
 
