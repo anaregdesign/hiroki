@@ -5,9 +5,10 @@ Use this reference when the app needs Azure hosting, Azure-managed secrets, or p
 ## Default Platform Choices
 
 - Use Azure Container Apps for React Router apps that need a server runtime.
+- Keep the default Container Apps ingress public when the app is meant to be internet-facing.
 - Use SQLite for local development when the app needs relational persistence.
 - Use Azure SQL Database serverless for Azure-hosted relational persistence, unless workload characteristics force another SKU.
-- Use a VNet-integrated Container Apps environment when the workload must reach Azure resources through `Private Endpoint`, including Azure SQL Database.
+- Use a VNet-integrated Container Apps environment for outbound private connectivity when the workload must reach Azure resources through `Private Endpoint`, including Azure SQL Database.
 - For Container Apps to Azure SQL traffic, use Azure SQL `Private Endpoint` with the `privatelink.database.windows.net` private DNS zone, and keep Azure SQL public network access disabled.
 - Use a Container Apps managed environment `Private Endpoint` only when ingress itself must be private-only.
 - When authentication is required, use `Microsoft Entra ID` for Microsoft authentication and keep app registration setup scriptable with `az` or `az rest`.
@@ -49,7 +50,7 @@ Use this reference when the app needs Azure hosting, Azure-managed secrets, or p
 - Delegated infrastructure subnet for the Container Apps environment
 - Separate subnet for `Private Endpoint` resources
 - Container Apps environment
-- Container App for the web runtime
+- Container App for the web runtime with public ingress by default
 - Azure App Configuration store
 - Azure SQL logical server plus serverless database when the app needs relational persistence
 - Azure SQL `Private Endpoint` plus `privatelink.database.windows.net` private DNS link when the app needs relational persistence
@@ -70,7 +71,7 @@ Use this reference when the app needs Azure hosting, Azure-managed secrets, or p
 - Do not hide migration execution inside container startup unless the blast radius is understood and rollback is trivial.
 - Do not skip a health endpoint. Container Apps deploy and smoke-test flow should have a stable probe target.
 - Do not leave callback URLs undocumented. Each environment needs explicit OAuth redirect values.
-- Do not confuse private database connectivity with private web ingress. VNet-integrated Container Apps plus Azure SQL `Private Endpoint` is the default for app-to-database traffic. Add a Container Apps managed environment `Private Endpoint` only when ingress must also stay private.
+- Do not confuse private database connectivity with private web ingress. Public Container Apps ingress plus VNet-integrated outbound traffic to Azure SQL `Private Endpoint` is the default for internet-facing apps. Add a Container Apps managed environment `Private Endpoint` only when ingress must also stay private.
 - When authentication is required, do not rely on portal-only `Microsoft Entra ID` changes. Keep the `az` or `az rest` command flow with the project notes or bootstrap scripts.
 
 ## Keep IaC and Runtime Boundaries Explicit

@@ -13,7 +13,7 @@ This skill does not own `/docs/spec`, `/docs/plans/plan.md`, commit-log workflow
 Treat requests for "Microsoft auth" as `Microsoft Entra ID` only when the app actually needs user authentication. If the app does not need auth, skip the app registration and auth guidance.
 Prefer a secretless configuration model: do not introduce `.env` or `.env.example` for Azure-hosted apps. Put non-secret runtime configuration in Azure App Configuration, put secrets in Key Vault, use local `DefaultAzureCredential` during development, and use `ManagedIdentityCredential` for deployed app-to-Azure and Azure SQL authentication.
 Keeping the same database engine across environments is usually safer. When this skill adopts SQLite for developer speed, treat it as local-development-only storage and require Azure SQL Database for every Azure-hosted environment that persists relational data.
-For Azure-hosted relational traffic, do not normalize Azure SQL firewall exceptions as the connectivity model. Use a VNet-integrated Container Apps environment and reach Azure SQL through `Private Endpoint` plus private DNS. If the app ingress itself must stay private-only, add a Container Apps managed environment `Private Endpoint` as a separate concern.
+For Azure-hosted relational traffic, keep the default assumption that the web app on Container Apps remains publicly reachable unless the product explicitly requires private-only ingress. Even with public app ingress, do not normalize Azure SQL firewall exceptions as the connectivity model. Use a VNet-integrated Container Apps environment and reach Azure SQL through `Private Endpoint` plus private DNS. If the app ingress itself must stay private-only, add a Container Apps managed environment `Private Endpoint` as a separate concern.
 Surface Azure prerequisites early. If the project will definitely require specific RBAC assignments, tenant or subscription access, SQL admin setup, App Configuration or Key Vault access, or an unavoidable Service Principal for deploy or migration paths, request those at the beginning of development instead of discovering them mid-implementation.
 When the app requires user authentication, prefer a real local sign-in path with a dev or test `Microsoft Entra ID` registration and test identities rather than a hidden development auth bypass.
 
@@ -114,6 +114,7 @@ When the app requires user authentication, prefer a real local sign-in path with
 - Use SQLite only for local development.
 - When the app is hosted on Azure and persists relational data, use Azure SQL Database rather than SQLite.
 - Prefer Azure SQL Database serverless for Azure-hosted relational persistence unless workload characteristics force another SKU.
+- Keep the default Container Apps endpoint public when the product is an internet-facing web app, and use VNet integration for outbound private connectivity.
 - Use a VNet-integrated Container Apps environment when the hosted runtime must reach Azure resources through `Private Endpoint`, including Azure SQL Database.
 - For Container Apps to Azure SQL connectivity, use Azure SQL `Private Endpoint` plus private DNS and keep Azure SQL public network access disabled. Do not treat SQL firewall rules or "Allow Azure services and resources to access this server" as the standard path.
 - Use a Container Apps managed environment `Private Endpoint` only when ingress itself must be private-only. Do not confuse that requirement with the separate need for private database connectivity.
@@ -194,7 +195,7 @@ When the app requires user authentication, prefer a real local sign-in path with
 
 - Add a container-friendly `Dockerfile`.
 - Add `azure.yaml` and declarative infrastructure.
-- Use a VNet-integrated Container Apps environment and plan separate infrastructure and `Private Endpoint` subnets early.
+- Keep the default Container Apps ingress public for internet-facing apps, and use VNet integration plus separate infrastructure and `Private Endpoint` subnets for private backing-service connectivity.
 - Prefer Container Apps, Managed Identity, Azure App Configuration, Key Vault, Application Insights, and, when relational persistence is required, Azure SQL Database serverless behind `Private Endpoint`, as the default platform set.
 - If ingress must be private-only, disable public network access on the Container Apps managed environment and front it with a Private Link-capable edge instead of reopening public ingress.
 - Add `/health` and keep probes cheap.
