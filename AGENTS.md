@@ -22,4 +22,5 @@
 ## Specification Rules
 
 - The canonical spec document is `/docs/spec/specification.md`.
+- Write `specification.md` in Japanese.
 - Do not add or reference other spec files under `/docs/spec/`; consolidate spec content into `specification.md`.
