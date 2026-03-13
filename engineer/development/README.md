@@ -1,8 +1,17 @@
-# development
+# engineer/development
 
-Skills for software development workflows, architecture guardrails, and Azure delivery standards.
+Skills for the `engineer` persona's `development` workstream.
 
-Each skill in this directory conforms to the [agentskills.io](https://agentskills.io/) specification.
+Each skill in this subtree conforms to the [agentskills.io](https://agentskills.io/) specification.
+
+## Hierarchy
+
+- Persona: `engineer`
+- Workstream: `development`
+- Tasks:
+  - `deliver-spec-first-change/spec-driven-workflow`
+  - `create-single-page-application/enforce-react-spa-architecture`
+  - `create-single-page-application-on-azure/azure-spa-clean-architecture-bootstrap`
 
 ## Bootstrap
 
@@ -13,9 +22,9 @@ Bootstrap these skills first when the repository needs the full React Router + P
 ```text
 Bootstrap these three agent skills into this repository under `.github/skills/`:
 
-- https://github.com/anaregdesign/hiroki/tree/main/develop/skills/enforce-react-spa-architecture
-- https://github.com/anaregdesign/hiroki/tree/main/develop/skills/azure-spa-clean-architecture-bootstrap
-- https://github.com/anaregdesign/hiroki/tree/main/develop/skills/spec-driven-workflow
+- https://github.com/anaregdesign/hiroki/tree/main/engineer/development/create-single-page-application/enforce-react-spa-architecture
+- https://github.com/anaregdesign/hiroki/tree/main/engineer/development/create-single-page-application-on-azure/azure-spa-clean-architecture-bootstrap
+- https://github.com/anaregdesign/hiroki/tree/main/engineer/development/deliver-spec-first-change/spec-driven-workflow
 
 Requirements:
 - Create `.github/skills/enforce-react-spa-architecture/`
@@ -45,9 +54,9 @@ Requirements:
 ```text
 Use `$skill-installer` to install these three skills into my personal Codex skills directory (`$CODEX_HOME/skills` or `~/.codex/skills`) from this repository:
 
-- https://github.com/anaregdesign/hiroki/tree/main/develop/skills/enforce-react-spa-architecture
-- https://github.com/anaregdesign/hiroki/tree/main/develop/skills/azure-spa-clean-architecture-bootstrap
-- https://github.com/anaregdesign/hiroki/tree/main/develop/skills/spec-driven-workflow
+- https://github.com/anaregdesign/hiroki/tree/main/engineer/development/create-single-page-application/enforce-react-spa-architecture
+- https://github.com/anaregdesign/hiroki/tree/main/engineer/development/create-single-page-application-on-azure/azure-spa-clean-architecture-bootstrap
+- https://github.com/anaregdesign/hiroki/tree/main/engineer/development/deliver-spec-first-change/spec-driven-workflow
 
 Requirements:
 - Install `enforce-react-spa-architecture` first, then `azure-spa-clean-architecture-bootstrap`, then `spec-driven-workflow`.
@@ -72,9 +81,9 @@ Requirements:
 ```text
 Copy these three skills into the current project's `.claude/skills/` directory:
 
-- https://github.com/anaregdesign/hiroki/tree/main/develop/skills/enforce-react-spa-architecture
-- https://github.com/anaregdesign/hiroki/tree/main/develop/skills/azure-spa-clean-architecture-bootstrap
-- https://github.com/anaregdesign/hiroki/tree/main/develop/skills/spec-driven-workflow
+- https://github.com/anaregdesign/hiroki/tree/main/engineer/development/create-single-page-application/enforce-react-spa-architecture
+- https://github.com/anaregdesign/hiroki/tree/main/engineer/development/create-single-page-application-on-azure/azure-spa-clean-architecture-bootstrap
+- https://github.com/anaregdesign/hiroki/tree/main/engineer/development/deliver-spec-first-change/spec-driven-workflow
 
 Requirements:
 - Create `.claude/skills/enforce-react-spa-architecture/`

@@ -78,10 +78,10 @@
   repository の目的、振る舞い、期待値を残す durable な spec を置く。ここにある spec は日本語を基本とする。
 - `docs/plans/`:
   個別の作業単位を進めるための一時的な execution plan と、その archive を置く。ここは repository の長期的な人格記録そのものではなく、作業の履歴を補助する場所である。
-- `develop/skills/`:
-  hiroki の技術的実践を具体的な skill として保持する場所であり、再利用可能な workflow や guardrail の source を持つ。
+- `engineer/`:
+  engineer という persona 配下の skill source を置く。現在の mirrored skill は `engineer/development/<task>/<skill-name>/` の hierarchy で整理される。
 - repository 全体:
-  高レベルの思想は `docs/spec/`、実行中の作業管理は `docs/plans/`、具体的な skill の本体は `develop/skills/` に置き、役割を分けて整理する。
+  高レベルの思想は `docs/spec/`、実行中の作業管理は `docs/plans/`、具体的な skill の本体は persona 起点の hierarchy に置き、役割を分けて整理する。
 
 ## Structure Expectations
 

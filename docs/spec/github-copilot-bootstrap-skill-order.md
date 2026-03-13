@@ -16,7 +16,7 @@ The current bootstrap text describes the three skills, but it does not state str
 
 ## Scope
 
-- Update the GitHub Copilot bootstrap section in `develop/skills/README.md`
+- Update the GitHub Copilot bootstrap section in `engineer/development/README.md`
 - Make the generated `copilot-instructions` guidance explicitly start with `spec-driven-workflow`
 - Keep the existing role boundaries for the architecture and Azure skills
 
@@ -34,7 +34,7 @@ The current bootstrap text describes the three skills, but it does not state str
 
 ## Acceptance Criteria
 
-- `develop/skills/README.md` explicitly says `.github/copilot-instructions.md` should tell Copilot to start with `spec-driven-workflow` first
+- `engineer/development/README.md` explicitly says `.github/copilot-instructions.md` should tell Copilot to start with `spec-driven-workflow` first
 - The text still explains when to add `enforce-react-spa-architecture`
 - The text still explains when to add `azure-spa-clean-architecture-bootstrap`
 - The bootstrap prompt remains coherent and copy-pastable
