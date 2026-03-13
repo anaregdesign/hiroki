@@ -18,20 +18,22 @@ Each skill in this subtree conforms to the [agentskills.io](https://agentskills.
 
 Bootstrap these skills first when the repository needs the full React Router + Prisma + Azure development stack plus spec-first planning.
 
-### GitHub Copilot
+### GitHub Copilot CLI
 
 ```text
-Bootstrap these three agent skills into this repository under `.github/skills/`:
+Use GitHub's official `/create-skill` command to create these three project skills under `.github/skills/` for this repository:
 
 - https://github.com/anaregdesign/hiroki/tree/main/skills/engineer/development/create-single-page-application/enforce-react-spa-architecture
 - https://github.com/anaregdesign/hiroki/tree/main/skills/engineer/development/create-single-page-application/azure-spa-clean-architecture-bootstrap
 - https://github.com/anaregdesign/hiroki/tree/main/skills/engineer/planning/spec-driven-workflow
 
 Requirements:
+- Use `/create-skill` for each skill instead of manually hand-creating the folder tree or retyping the skill contents from scratch.
 - Create `.github/skills/enforce-react-spa-architecture/`
 - Create `.github/skills/azure-spa-clean-architecture-bootstrap/`
 - Create `.github/skills/spec-driven-workflow/`
-- Copy the complete contents of each source directory exactly, including `SKILL.md`, `agents/openai.yaml`, `references/`, `assets/`, and `scripts/` if present.
+- Use the corresponding repository source directory as the canonical content for each generated skill.
+- After `/create-skill` creates a skill, reconcile the generated output so it matches the source directory exactly, including `SKILL.md`, `agents/openai.yaml`, `references/`, `assets/`, and `scripts/` if present.
 - Install `enforce-react-spa-architecture` first, then `azure-spa-clean-architecture-bootstrap`, then `spec-driven-workflow`.
 - Treat `enforce-react-spa-architecture` as the base app-code architecture skill.
 - Treat `azure-spa-clean-architecture-bootstrap` as the Azure extension that depends on `enforce-react-spa-architecture`.
