@@ -1,10 +1,10 @@
 # Plan Documentation
 
-Use this reference when creating or updating `/docs/plan.md` for a development request.
+Use this reference when creating or updating `/docs/plans/plan.md` for a development request.
 
 ## Goal
 
-Turn the request into a temporary execution tracker that can be executed from top to bottom, keeps related work grouped, and can be deleted cleanly once the work is done.
+Turn the request into a temporary execution tracker that can be executed from top to bottom, keeps related work grouped, and can be archived cleanly once the work is done.
 
 ## Hierarchical Model
 
@@ -74,10 +74,10 @@ Use only the levels the work actually needs.
 - Preserve true constraints and required sequencing, but do not turn every repeated instruction into its own checkbox.
 - Rewrite the plan when the execution path changes instead of appending stale history.
 - If technical investigation reveals a better execution path, revise the plan to match the current best approach instead of preserving the original guess.
-- Update the spec only when accepted user-visible behavior changes; technical replanning by itself belongs in `/docs/plan.md`.
+- Update the spec only when accepted user-visible behavior changes; technical replanning by itself belongs in `/docs/plans/plan.md`.
 
 ## Completion Rule
 
 - Check a box only when the corresponding step is actually done.
 - Remove or rewrite obsolete checkboxes instead of leaving misleading stale tasks behind.
-- When all remaining checkboxes are complete and no tracked execution work remains, delete `/docs/plan.md`.
+- When all remaining checkboxes are complete and no tracked execution work remains, archive `/docs/plans/plan.md` as `/docs/plans/plan.YYYYMMDD-HHMMSS.md`.

@@ -63,7 +63,7 @@ If no relevant spec exists yet, start by creating the first spec document before
 
 - Do not start with folder layout, classes, Hook names, or schema details.
 - Do not let implementation notes replace acceptance criteria.
-- Do not let `/docs/plan.md` replace the user-facing requirement document.
+- Do not let `/docs/plans/plan.md` replace the user-facing requirement document.
 - Do not leave the spec as a vague problem statement without concrete behavior.
 - Do not silently replace long step-by-step instructions with your own abstraction; show the proposed higher-level goal and ask for review first.
 - Do not keep stale behavior in the spec after the implementation direction changes.

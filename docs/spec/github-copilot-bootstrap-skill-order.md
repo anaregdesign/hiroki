@@ -48,8 +48,8 @@ The current bootstrap text describes the three skills, but it does not state str
 
 - Follow the repository's mirrored-skill terminology exactly
 - Keep the change focused on GitHub Copilot bootstrap instructions
-- Temporary execution tracking lives in `/docs/plan.md` while the work is active
+- Temporary execution tracking lives in `/docs/plans/plan.md` while the work is active
 
 ## Links
 
-- Plan: `/docs/plan.md`
+- Plan: `/docs/plans/plan.md`
