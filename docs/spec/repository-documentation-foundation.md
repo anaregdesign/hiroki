@@ -2,88 +2,94 @@
 
 ## Summary
 
-Define this repository as the canonical documentation hub for hiroki's characteristics, technical strengths, technologies, and reusable skills. Establish the initial scope, audience, information domains, and acceptance criteria for documenting that knowledge in a structured way.
+この repository は、hiroki という人格を時間が経っても読み取れる形で残すための documentation hub である。単なる skill 置き場や技術メモの集積ではなく、hiroki の判断の仕方、重視する技術、繰り返し使う workflow、そしてそれらをどう整理して読めるようにするかを一貫した構造で残す。
 
 ## User Problem
 
-The repository already contains skills and related materials, but the overall documentation goal is still abstract. Without a repository-level specification, it is hard to judge what knowledge should be documented, how complete the documentation should become, and how future documents should be organized.
+この repository にはすでに skill や関連 document があるが、何を中心に記録する場所なのかが曖昧だと、技術 catalog と人格の記録が混ざってしまう。repository-level の spec がないと、どの document を追加すべきか、どこまで書けば十分か、どの階層に置けば読み手が迷わないかを判断しづらい。
 
 ## Users and Scenarios
 
-- hiroki, who wants a repository that reflects his characteristics, technical strengths, technologies, and skills in a durable and reviewable form
-- collaborators who need to understand what hiroki knows, what he has standardized, and where to find the relevant documentation
-- AI agents or tooling that need a reliable repository-level source of truth for hiroki's documented capabilities and guidance
+- hiroki 自身が、自分の人格、価値観、技術、skill を時間が経っても見直せる形で残したいとき
+- collaborator が、hiroki が何を得意とし、何を標準とし、どういう前提で判断する人なのかを理解したいとき
+- AI agent や tooling が、この repository を hiroki に関する安定した source of truth として参照したいとき
 
 ## Scope
 
-- Define the repository's role as a documentation hub
-- Define the primary documentation domains the repository should eventually cover
-- Define the expected structure and discoverability of those documents at a high level
-- Define what "sufficiently documented" means for future repository growth
-- Provide a foundation that later specs can refine into domain-specific documents
+- この repository を「hiroki という人格を残すための repository」として定義する
+- hiroki の特徴、価値観、技術、skill をどのような domain に分けて document 化していくかを定義する
+- 読み手が迷わず辿れるように、repository の大まかな整理方針と document の置き方を定義する
+- 将来の spec や summary document が、この foundation を起点に分岐できる状態を作る
+- この repository では spec を日本語で記述する方針を明確にする
 
 ## Non-Goals
 
-- Writing every detailed document for every technology or skill in this request
-- Freezing the final folder layout for every future document before the domains are refined
-- Replacing the source skill files themselves with only summary documentation
-- Deciding unrelated application architecture or cloud deployment behavior
+- すべての技術や skill の詳細 document をこの 1 file に書き切ること
+- 各 skill の詳細な更新 operation や maintenance 手順をこの spec に含めること
+- source skill file を overview document だけで置き換えること
+- application architecture や cloud topology の個別判断をここで固定すること
 
 ## User-Visible Behavior
 
-- The repository has a durable specification that states its documentation mission clearly
-- Future documentation work can be evaluated against explicit domains instead of an informal idea
-- Reviewers can tell whether a new document belongs in the repository and whether an important domain is still missing
-- The repository can expand from a high-level foundation into more detailed specifications and content without losing coherence
+- 読み手は、この repository が hiroki の人格と技術的実践を残すための場所だと明確に理解できる
+- 新しい spec や document を追加するとき、人格、技術、skill、repository 構造のどこに属する内容かを判断できる
+- repository のどこに何が置かれているかが大づかみに分かり、深い運用手順を読まなくても navigation できる
+- 今後 document が増えても、人格を中心にした repository であるという軸がぶれない
 
 ## Acceptance Criteria
 
-- The repository-level spec states that the repository aims to document hiroki's characteristics, technologies, and skills comprehensively over time
-- The spec identifies the main audiences and why they use the repository
-- The spec defines the major knowledge domains that future documents should cover
-- The spec defines repository-level expectations for structure, discoverability, and maintenance
-- The spec is written at a level that allows later detailed specs to branch from it without rewriting the mission
+- spec が、この repository の中心目的を「hiroki という人格を残すこと」として明記している
+- spec が、技術や skill の記録が人格や判断様式の記録とどう結びつくかを説明している
+- spec が、主要な読者と利用場面を示している
+- spec が、現在の repository の大まかな整理方針を説明している
+- spec が、詳細な更新 operation を書かずに repository の structure を理解できる粒度でまとまっている
+- spec が、この repository では spec を日本語で記述する方針を示している
 
 ## Edge Cases
 
-- Some knowledge may overlap across domains, such as a skill that also represents a technology preference or working style
-- Some areas may remain intentionally incomplete for a time, so the documentation system must support phased expansion
-- New technologies or skills may appear later, so the repository must support adding new documentation domains without invalidating earlier documents
-- Certain knowledge may live partly in source skill files and partly in higher-level summary documents, so the repository should describe the relationship between canonical source files and overview documents clearly
+- 1 つの内容が、技術選好でもあり working style でもある場合がある
+- 一部の domain は先に skill source だけが存在し、上位 summary が後から追加される場合がある
+- 後から新しい persona や domain の整理軸を導入しても、既存 document の意味が失われないようにする必要がある
+- repository の構造を整理し直しても、「hiroki を残す repository」であるという中心目的は維持される必要がある
 
 ## Constraints and Dependencies
 
-- The repository should treat actual skill content and mirrored source material as authoritative where they already exist
-- High-level documentation should summarize and organize the knowledge without drifting away from the underlying source files
-- Future documents should prefer stable terminology already used in the repository's skills and instructions
-- This initial spec is intentionally high level and should serve as a foundation for later, narrower specs
+- すでに存在する skill source や関連 document と矛盾しない high-level summary にする
+- implementation 手順ではなく、読み手が repository の意味と構造を理解できる説明を優先する
+- spec は日本語で記述し、必要な技術用語だけ英語を使う
+- この foundation spec は high level に保ち、後続の個別 spec が具体化を担当する
 
 ## Documentation Domains
 
-- Characteristics and working style:
-  Document hiroki's recurring preferences, decision-making patterns, communication expectations, and standards that affect how work should be performed.
-- Technical strengths and technology areas:
-  Document the technologies, platforms, frameworks, and problem areas that hiroki actively uses or standardizes.
-- Skills and reusable workflows:
-  Document each reusable skill, what it is for, when to use it, what it depends on, and how it relates to other skills.
-- Repository conventions and source-of-truth rules:
-  Document how mirrored files, source files, generated guidance, and maintenance workflows relate to each other.
-- Navigation and discovery:
-  Document how a person or agent should find the right document, skill, or reference quickly.
+- 人格と判断様式:
+  hiroki が何を大事にし、どう判断し、どう他者と協働するかを記録する。
+- 技術と実践領域:
+  hiroki が扱う technology、platform、framework、problem space を記録する。
+- skill と再利用可能な workflow:
+  どの skill が何を担い、どの場面で使われ、他の skill とどう関係するかを記録する。
+- repository の整理方針:
+  document、spec、plan、skill source が repository の中でどう住み分けるかを記録する。
+- navigation と発見性:
+  人や agent が必要な document にどう辿るかを記録する。
+
+## Repository Organization
+
+- `docs/spec/`:
+  repository の目的、振る舞い、期待値を残す durable な spec を置く。ここにある spec は日本語を基本とする。
+- `docs/plans/`:
+  個別の作業単位を進めるための一時的な execution plan と、その archive を置く。ここは repository の長期的な人格記録そのものではなく、作業の履歴を補助する場所である。
+- `develop/skills/`:
+  hiroki の技術的実践を具体的な skill として保持する場所であり、再利用可能な workflow や guardrail の source を持つ。
+- repository 全体:
+  高レベルの思想は `docs/spec/`、実行中の作業管理は `docs/plans/`、具体的な skill の本体は `develop/skills/` に置き、役割を分けて整理する。
 
 ## Structure Expectations
 
-- The repository should keep durable documentation under `docs/` with clear separation between high-level specification, temporary execution tracking, and source skill content.
-- Repository-level overview documents should point to narrower domain documents rather than trying to hold every detail in one file.
-- Documentation should make the relationship between overview documents, skill files, references, and mirrored sources explicit.
-- The repository should support incremental expansion: it must be possible to add one domain at a time without restructuring everything.
-
-## Maintenance Expectations
-
-- When a skill, technology preference, or repository rule changes materially, the relevant documentation should be updated so the repository remains trustworthy.
-- Documentation should prefer a small number of clear canonical documents over duplicated summaries spread across many files.
-- High-level overview documents should be kept aligned with the detailed documents and source files they summarize.
+- 1 つの file にすべてを詰め込まず、repository-level の overview から個別 domain の spec や skill source に辿れる構造を保つ
+- 人格を説明する document と、技術的な skill source を混同せず、それぞれの役割が分かるように整理する
+- 後から domain や hierarchy を増やしても、既存 document を大きく崩さず拡張できるようにする
+- repository の整理は、見た目の分類ではなく「hiroki をどう残すか」という目的に従う
 
 ## Links
 
-- Temporary execution tracking for this delivery unit lives in `/docs/plans/plan.md` while the work is active.
+- この更新の active plan は、作業中のあいだ `/docs/plans/plan.md` に置かれる。
