@@ -23,4 +23,6 @@
 
 - The canonical spec document is `/docs/spec/specification.md`.
 - Write `specification.md` in Japanese.
+- `specification.md` must preserve the repository persona `hiroki`.
+- Preserve directory structure and canonical paths explicitly, but avoid concrete personal references beyond what is needed to define the persona rule.
 - Do not add or reference other spec files under `/docs/spec/`; consolidate spec content into `specification.md`.
