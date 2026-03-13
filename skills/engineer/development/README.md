@@ -1,4 +1,4 @@
-# engineer/development
+# skills/engineer/development
 
 Skills for the `engineer` persona's `development` workstream.
 
@@ -12,7 +12,7 @@ Each skill in this subtree conforms to the [agentskills.io](https://agentskills.
   - `create-single-page-application/enforce-react-spa-architecture`
   - `create-single-page-application/azure-spa-clean-architecture-bootstrap`
 - Related cross-workstream skill:
-  - `engineer/planning/spec-driven-workflow`
+  - `skills/engineer/planning/spec-driven-workflow`
 
 ## Bootstrap
 
@@ -23,9 +23,9 @@ Bootstrap these skills first when the repository needs the full React Router + P
 ```text
 Bootstrap these three agent skills into this repository under `.github/skills/`:
 
-- https://github.com/anaregdesign/hiroki/tree/main/engineer/development/create-single-page-application/enforce-react-spa-architecture
-- https://github.com/anaregdesign/hiroki/tree/main/engineer/development/create-single-page-application/azure-spa-clean-architecture-bootstrap
-- https://github.com/anaregdesign/hiroki/tree/main/engineer/planning/spec-driven-workflow
+- https://github.com/anaregdesign/hiroki/tree/main/skills/engineer/development/create-single-page-application/enforce-react-spa-architecture
+- https://github.com/anaregdesign/hiroki/tree/main/skills/engineer/development/create-single-page-application/azure-spa-clean-architecture-bootstrap
+- https://github.com/anaregdesign/hiroki/tree/main/skills/engineer/planning/spec-driven-workflow
 
 Requirements:
 - Create `.github/skills/enforce-react-spa-architecture/`
@@ -55,9 +55,9 @@ Requirements:
 ```text
 Use `$skill-installer` to install these three skills into my personal Codex skills directory (`$CODEX_HOME/skills` or `~/.codex/skills`) from this repository:
 
-- https://github.com/anaregdesign/hiroki/tree/main/engineer/development/create-single-page-application/enforce-react-spa-architecture
-- https://github.com/anaregdesign/hiroki/tree/main/engineer/development/create-single-page-application/azure-spa-clean-architecture-bootstrap
-- https://github.com/anaregdesign/hiroki/tree/main/engineer/planning/spec-driven-workflow
+- https://github.com/anaregdesign/hiroki/tree/main/skills/engineer/development/create-single-page-application/enforce-react-spa-architecture
+- https://github.com/anaregdesign/hiroki/tree/main/skills/engineer/development/create-single-page-application/azure-spa-clean-architecture-bootstrap
+- https://github.com/anaregdesign/hiroki/tree/main/skills/engineer/planning/spec-driven-workflow
 
 Requirements:
 - Install `enforce-react-spa-architecture` first, then `azure-spa-clean-architecture-bootstrap`, then `spec-driven-workflow`.
@@ -82,9 +82,9 @@ Requirements:
 ```text
 Copy these three skills into the current project's `.claude/skills/` directory:
 
-- https://github.com/anaregdesign/hiroki/tree/main/engineer/development/create-single-page-application/enforce-react-spa-architecture
-- https://github.com/anaregdesign/hiroki/tree/main/engineer/development/create-single-page-application/azure-spa-clean-architecture-bootstrap
-- https://github.com/anaregdesign/hiroki/tree/main/engineer/planning/spec-driven-workflow
+- https://github.com/anaregdesign/hiroki/tree/main/skills/engineer/development/create-single-page-application/enforce-react-spa-architecture
+- https://github.com/anaregdesign/hiroki/tree/main/skills/engineer/development/create-single-page-application/azure-spa-clean-architecture-bootstrap
+- https://github.com/anaregdesign/hiroki/tree/main/skills/engineer/planning/spec-driven-workflow
 
 Requirements:
 - Create `.claude/skills/enforce-react-spa-architecture/`
@@ -107,7 +107,7 @@ Requirements:
 ## Overview
 
 This directory currently contains the companion pair for React Router + Prisma SPA architecture and Azure delivery.
-For full bootstrap, combine this subtree with `engineer/planning/spec-driven-workflow`, the independent spec and planning workflow skill.
+For full bootstrap, combine this subtree with `skills/engineer/planning/spec-driven-workflow`, the independent spec and planning workflow skill.
 
 The companion pair is:
 
@@ -116,7 +116,7 @@ The companion pair is:
 
 The related planning skill is:
 
-- `spec-driven-workflow`: the spec and plan workflow skill under `engineer/planning/`
+- `spec-driven-workflow`: the spec and plan workflow skill under `skills/engineer/planning/`
 
 ## Skill Roles
 
@@ -157,7 +157,7 @@ This skill does not replace:
 ### `spec-driven-workflow`
 
 Role:
-- Lives under `engineer/planning/` and documents spec-first planning flow plus shared commit-log workflow for feature work.
+- Lives under `skills/engineer/planning/` and documents spec-first planning flow plus shared commit-log workflow for feature work.
 
 Use this skill for:
 - writing complete user-visible requirements under `/docs/spec/`
