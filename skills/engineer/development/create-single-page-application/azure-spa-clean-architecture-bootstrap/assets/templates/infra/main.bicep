@@ -1,5 +1,6 @@
 param appName string
 param location string = resourceGroup().location
+@description('Current or bootstrap container image used only to satisfy the Container App resource template during infra provisioning. Release image rollout should happen outside infra convergence.')
 param containerImage string
 param containerPort int = 3000
 param cpu int = 1

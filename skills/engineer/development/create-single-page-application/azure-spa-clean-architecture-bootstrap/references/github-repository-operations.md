@@ -34,6 +34,7 @@ Use this reference when creating or hardening the target GitHub repository for A
 - Prefer Azure App Configuration and Key Vault as the runtime config stores rather than expanding GitHub-hosted variables into an `.env`-style runtime source of truth.
 - Add protection rules when production deploys should require approval.
 - Keep the OIDC federated credential subject aligned with the repository and Environment name.
+- Keep release workflow names and Environment names stable once the OIDC subject is issued, or rotate the federated credential deliberately.
 
 ## Recommended Environment Variables
 
@@ -41,12 +42,18 @@ Use this reference when creating or hardening the target GitHub repository for A
 - `AZURE_TENANT_ID`
 - `AZURE_SUBSCRIPTION_ID`
 - `AZURE_RESOURCE_GROUP`
-- `AZURE_CONTAINER_APP_NAME`
+- `AZURE_APP_NAME`
 
 ## Optional Environment Secrets
 
-- `GHCR_PULL_TOKEN` only if the package must stay private
+- `CONTAINER_REGISTRY_PASSWORD` only if the registry cannot use Managed Identity
 - Provider secrets that cannot be replaced by platform identity
+
+## Optional Environment Variables
+
+- `CONTAINER_REGISTRY_SERVER`
+- `CONTAINER_REGISTRY_IDENTITY`
+- `CONTAINER_REGISTRY_USERNAME`
 
 ## GHCR Package Policy
 
@@ -57,6 +64,7 @@ Use this reference when creating or hardening the target GitHub repository for A
 ## Release Policy
 
 - Trigger production image publish from `release.published`.
+- Use one release workflow that can run `publish`, `plan_infra`, `deploy_infra`, `deploy_app`, and `smoke_test`.
 - Deploy only from immutable release tags.
 - Use a new patch release to fix a broken workflow definition instead of mutating an older release.
 - Keep prerelease handling explicit. Either skip production deploys for prereleases or send them to a separate Environment.
@@ -68,6 +76,8 @@ Use this reference when creating or hardening the target GitHub repository for A
 - Give the deploy identity only the Azure role scope it needs.
 - Keep runtime Managed Identity separate from the deploy identity.
 - If the repository will definitely deploy to Azure, request the OIDC-backed Azure application, Service Principal, federated credential, and scoped RBAC assignment early in the project instead of waiting until release cutover.
+- If the infra template manages role assignments, request `Role Based Access Control Administrator` or `User Access Administrator` at the deployment scope in addition to the resource-management role.
+- Do not default to `Owner` when the narrower role set is enough.
 
 ## Repository Hygiene
 

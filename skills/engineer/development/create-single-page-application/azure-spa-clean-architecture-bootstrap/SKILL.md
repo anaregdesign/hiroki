@@ -1,6 +1,6 @@
 ---
 name: azure-spa-clean-architecture-bootstrap
-description: "Own Azure platform, identity, secretless config, IaC, and GitHub release and deployment automation for React Router + Prisma v7 web apps that already follow enforce-react-spa-architecture. Use when the work is primarily Azure runtime-mode selection, Microsoft Entra ID integration or Azure CLI app registration when end-user authentication is required, Azure Container Apps, local SQLite development with Azure SQL Database for hosted persistence, Azure App Configuration, Key Vault, Managed Identity, local DefaultAzureCredential setup, GitHub Actions OIDC, GHCR image release, or production deployment verification. Do not use this skill for spec, planning, or branch-and-PR workflow or for base app-code architecture rules."
+description: "Own Azure platform, identity, secretless config, IaC, and GitHub release automation for React Router + Prisma v7 web apps that already follow enforce-react-spa-architecture. Use when the work is primarily Azure runtime-mode selection, Microsoft Entra ID integration or Azure CLI app registration when end-user authentication is required, Azure Container Apps, local SQLite development with Azure SQL Database for hosted persistence, Azure App Configuration, Key Vault, Managed Identity, local DefaultAzureCredential setup, or GitHub Actions OIDC-backed infrastructure and application deployment workflows. Do not use this skill for spec, planning, or branch-and-PR workflow or for base app-code architecture rules."
 ---
 
 # Azure Spa Clean Architecture Bootstrap
@@ -14,7 +14,7 @@ Treat requests for "Microsoft auth" as `Microsoft Entra ID` only when the app ac
 Prefer a secretless configuration model: do not introduce `.env` or `.env.example` for Azure-hosted apps. Put non-secret runtime configuration in Azure App Configuration, put secrets in Key Vault, use local `DefaultAzureCredential` during development, and use `ManagedIdentityCredential` for deployed app-to-Azure and Azure SQL authentication.
 Keeping the same database engine across environments is usually safer. When this skill adopts SQLite for developer speed, treat it as local-development-only storage and require Azure SQL Database for every Azure-hosted environment that persists relational data.
 For Azure-hosted relational traffic, keep the default assumption that the web app on Container Apps remains publicly reachable unless the product explicitly requires private-only ingress. Even with public app ingress, do not normalize Azure SQL firewall exceptions as the connectivity model. Use a VNet-integrated Container Apps environment and reach Azure SQL through `Private Endpoint` plus private DNS. If the app ingress itself must stay private-only, add a Container Apps managed environment `Private Endpoint` as a separate concern.
-Surface Azure prerequisites early. If the project will definitely require specific RBAC assignments, tenant or subscription access, SQL admin setup, App Configuration or Key Vault access, or an unavoidable Service Principal for deploy or migration paths, request those at the beginning of development instead of discovering them mid-implementation.
+Surface Azure prerequisites early. If the project will definitely require specific RBAC assignments, tenant or subscription access, SQL admin setup, App Configuration or Key Vault access, `Microsoft.Authorization/roleAssignments/write` for IaC-managed role assignments, or an unavoidable Service Principal for deploy or migration paths, request those at the beginning of development instead of discovering them mid-implementation.
 When the app requires user authentication, prefer a real local sign-in path with a dev or test `Microsoft Entra ID` registration and test identities rather than a hidden development auth bypass.
 
 ## Companion Skill Requirement
@@ -34,7 +34,8 @@ When the app requires user authentication, prefer a real local sign-in path with
    - list the Azure tenant, subscription, resource group scope, and RBAC assignments that are definitely required
    - identify any required SQL admin or migration identity setup
    - identify the required VNet, subnet, private DNS, and `Private Endpoint` design for Container Apps to Azure SQL connectivity, and whether ingress must also be private-only
-   - identify whether GitHub Actions OIDC setup or another unavoidable Service Principal is required
+   - identify whether a GitHub Actions OIDC-backed deploy identity is enough or whether another Service Principal is still required for migration or external automation
+   - identify whether the infra deploy creates Azure role assignments and therefore needs deploy-time RBAC beyond ordinary resource management
    - request these prerequisites at project start instead of waiting for release hardening
 3. Confirm the companion skill is installed:
    - required skill: `enforce-react-spa-architecture`
@@ -98,7 +99,7 @@ When the app requires user authentication, prefer a real local sign-in path with
   - `assets/templates/azure.yaml`
   - `assets/templates/Dockerfile`
   - `assets/templates/app/routes/health.ts`
-  - `assets/templates/.github/workflows/release-container-image.yml`
+  - `assets/templates/.github/workflows/release-azure-delivery.yml`
   - `assets/templates/scripts/azure/postprovision.sh`
   - `assets/templates/infra/main.bicep`
 
@@ -137,9 +138,16 @@ When the app requires user authentication, prefer a real local sign-in path with
 - Prefer scripted `az` or `az rest` app registration changes over portal-only click paths so redirect URIs, audience, and secret mode stay reproducible.
 - Use GitHub Actions OIDC to Azure. Do not store Azure client secrets in GitHub.
 - Prefer Managed Identity and OIDC over Service Principals, but if a Service Principal is definitely required for deploy, migration, or external automation, identify and request it during bootstrap rather than during release stabilization.
+- Keep the GitHub deploy identity separate from the runtime Managed Identity and from any migration or admin identity.
+- Scope the federated credential to the exact repository and GitHub Environment. If the organization customizes GitHub OIDC `sub` claims, make the Microsoft Entra federated credential match the customized subject before rollout.
+- If the IaC deploy creates Azure role assignments, request `Microsoft.Authorization/roleAssignments/write` at the deployment scope through `Role Based Access Control Administrator` or `User Access Administrator`. Do not default to `Owner`.
 - Keep repository governance explicit: protected default branch, required checks, and production Environment scoping.
 - Deploy immutable release-tag images, not mutable `latest`.
 - Keep production values in GitHub Environments and Azure-managed secret stores rather than in repo files.
+- Keep GitHub delivery as distinct `publish`, `plan_infra`, `deploy_infra`, `deploy_app`, and `smoke_test` jobs or an equivalent dependency chain. Run `azure/login` separately in each Azure job that talks to Azure.
+- Keep infra convergence and app rollout separate even when one workflow orchestrates both.
+- Prefer `what-if`-driven infra skip over file-path heuristics. When infra definitions still require an image parameter, feed `plan_infra` the currently deployed image so app-only releases do not force false infra drift.
+- Do not assume a container-registry push alone rolls out a new Azure Container Apps revision. Keep an explicit `deploy_app` step for the runtime image update.
 - Add explicit health endpoints and post-deploy smoke tests.
 - Keep README, callback URLs, configuration contract docs, release notes, and IaC in sync with the deployed system.
 
@@ -210,9 +218,13 @@ When the app requires user authentication, prefer a real local sign-in path with
 ### 6. Prepare GitHub delivery
 
 - Build and publish the container image on `release.published`.
-- Deploy only after image publish succeeds.
+- Use one release workflow that sequences `publish`, `plan_infra`, `deploy_infra`, `deploy_app`, and `smoke_test`.
+- Run `plan_infra` with `what-if` before any infra rollout, and skip `deploy_infra` when the plan reports no real infra change.
+- Deploy infra only after image publish succeeds, and deploy the app only after infra convergence succeeds or infra skip is confirmed.
 - Use GitHub Environment protection for production.
-- Keep OIDC federation subject scoped to the repository and environment.
+- Keep the OIDC federation subject scoped to the exact repository and Environment, typically `repo:<owner>/<repo>:environment:<environment>`.
+- If the organization enforces a custom OIDC subject template such as `job_workflow_ref`, make the federated credential match it before enabling the workflow.
+- Run `azure/login` in each Azure job that calls Azure. Do not assume auth state survives across jobs.
 - Use GHCR by default unless the platform requires ACR.
 
 ### 7. Verify before push and before release
@@ -220,10 +232,12 @@ When the app requires user authentication, prefer a real local sign-in path with
 - Run tests, typecheck, lint, and build.
 - Review boundary drift and forbidden imports.
 - Validate workflow syntax and IaC before release.
+- Verify `what-if` distinguishes app-only releases from real infra reconfiguration.
+- Verify the federated credential subject and the GitHub Environment name still match exactly.
 - When the app requires user authentication, verify the documented local sign-in path with the intended dev or test users before release.
 - If local development uses SQLite, verify the deployed environment has switched to Azure SQL Database before release.
 - Verify Container Apps health probes are pointed at the intended HTTP endpoint and succeed under realistic startup time.
-- Smoke-test the deployed revision and confirm callback URLs, health checks, Azure SQL private DNS resolution, Azure SQL private connectivity, and migration state.
+- Smoke-test the deployed revision and confirm callback URLs, health checks, Azure SQL private DNS resolution, Azure SQL private connectivity, infra convergence, and migration state.
 
 ### 8. Operate and hand off cleanly
 
