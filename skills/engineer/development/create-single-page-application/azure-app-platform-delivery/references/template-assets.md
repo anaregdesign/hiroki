@@ -28,7 +28,7 @@ Use this reference when copying files from `assets/templates/` into a target rep
 `assets/templates/infra/main.bicep` is the shared web-runtime baseline template. Extend it with Azure SQL resources only when the target app actually needs relational persistence.
 It keeps the Container App ingress public by default and includes Container Apps VNet integration so the hosted runtime can still reach private endpoints. Extend it with Azure SQL server, database, `Microsoft Entra ID` admin setup, and `Private Endpoint` resources when the target app needs relational persistence. Use App Configuration and Key Vault private endpoints for hosted environments, and add a Container Apps managed environment `Private Endpoint` only when the app ingress must also be private-only.
 `assets/templates/.github/workflows/release-azure-delivery.yml` is the shared release workflow template. It expects GitHub Actions OIDC, runs `plan_infra` before `deploy_infra`, skips infra rollout when `what-if` finds no real changes, and reuses `assets/templates/scripts/azure/postprovision.sh` for registry configuration when the runtime needs it.
-For GitHub Copilot coding-agent cloud access, use the sibling skill [`../../github-copilot-azure-access/SKILL.md`](../../github-copilot-azure-access/SKILL.md) and its `copilot-setup-steps.yml` template.
+For GitHub Copilot coding-agent cloud access, use the sibling skill [`../../copilot-azure-cloud-access/SKILL.md`](../../copilot-azure-cloud-access/SKILL.md) and its `copilot-setup-steps.yml` template.
 
 ## Adoption Flow
 

@@ -1,4 +1,0 @@
-interface:
-  display_name: "Azure SPA Platform Delivery"
-  short_description: "Own Azure hosting, secretless config, SQL, IaC, and GitHub release delivery"
-  default_prompt: "Use $azure-spa-clean-architecture-bootstrap together with $enforce-react-spa-architecture when the work is primarily Azure hosting, Azure SQL connectivity, secretless config, Bicep or azure.yaml bootstrap, GitHub Actions OIDC release delivery, or production verification. Do not use it for end-user Entra app registration or GitHub Copilot cloud access; use the sibling auth or Copilot skill instead."

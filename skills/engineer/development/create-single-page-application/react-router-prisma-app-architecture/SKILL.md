@@ -1,9 +1,9 @@
 ---
-name: enforce-react-spa-architecture
-description: "Own code-level clean-architecture guardrails for Vite-powered React Router + Prisma v7 applications. Use when bootstrapping or changing the app codebase itself: installing baseline app dependencies, placing modules, implementing or refactoring routes, loaders and actions, client use cases, domain models, Prisma-backed server code, Fluent UI React v9 screens, responsive UI, chart rendering, and pre-push verification. Do not use this skill to drive `/docs/spec`, `/docs/plans/plan.md`, repository workflow, or Azure platform, identity, IaC, and release-infrastructure decisions."
+name: react-router-prisma-app-architecture
+description: "Own React Router + Prisma app-code architecture, route boundaries, UI structure, and verification for Vite-based web apps. Use when the request mentions React Router routes, loaders or actions, component boundaries, use cases, domain models, Prisma-backed server code, Fluent UI, responsive UI, charts, Playwright UI verification, or app-structure refactoring. Do not use this skill for `/docs/spec` planning, Azure platform setup, app registration, end-user auth contract design, or release delivery."
 ---
 
-# Enforce React Spa Architecture
+# React Router Prisma App Architecture
 
 ## Overview
 

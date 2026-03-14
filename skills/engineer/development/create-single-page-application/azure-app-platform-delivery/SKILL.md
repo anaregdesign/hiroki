@@ -1,13 +1,13 @@
 ---
-name: azure-spa-clean-architecture-bootstrap
-description: "Own Azure hosting, secretless config, workload identity, Azure SQL connectivity, IaC, and GitHub release delivery for React Router + Prisma v7 web apps that already follow enforce-react-spa-architecture. Use when the work is primarily Azure Container Apps, Azure SQL Database, App Configuration, Key Vault, Managed Identity, Dockerfile or azure.yaml bootstrap, Bicep, GitHub Actions OIDC, GHCR image release, or production deployment verification. Do not use this skill for end-user Microsoft Entra ID app-registration work or GitHub Copilot coding agent cloud access."
+name: azure-app-platform-delivery
+description: "Own Azure app platform and production release delivery for React Router + Prisma web apps. Use when the request mentions Azure Container Apps, Azure SQL Database, App Configuration, Key Vault, Managed Identity, workload identity, DefaultAzureCredential, Dockerfile, azure.yaml, Bicep, GitHub Actions OIDC, GitHub `production` Environment, GHCR, deploy_infra, deploy_app, smoke tests, platform bootstrap, or deployment verification. Do not use this skill for end-user Microsoft Entra ID login contract design, app registration changes, or GitHub Copilot coding agent cloud access."
 ---
 
-# Azure Spa Clean Architecture Bootstrap
+# Azure App Platform Delivery
 
 ## Overview
 
-Use this skill as the Azure platform and delivery extension on top of `enforce-react-spa-architecture`.
+Use this skill as the Azure platform and delivery extension on top of `react-router-prisma-app-architecture`.
 This skill owns:
 
 - Azure Container Apps hosting and network topology
@@ -23,12 +23,12 @@ This skill does not own:
 - spec or planning workflow
 - base React Router + Prisma code architecture rules
 
-When the task is primarily app authentication, load [`../azure-spa-entra-auth/SKILL.md`](../azure-spa-entra-auth/SKILL.md).
-When the task is primarily GitHub Copilot coding agent Azure access, load [`../github-copilot-azure-access/SKILL.md`](../github-copilot-azure-access/SKILL.md).
+When the task is primarily app authentication, load [`../entra-user-auth-registration/SKILL.md`](../entra-user-auth-registration/SKILL.md).
+When the task is primarily GitHub Copilot coding agent Azure access, load [`../copilot-azure-cloud-access/SKILL.md`](../copilot-azure-cloud-access/SKILL.md).
 
 ## Companion Skill Requirement
 
-- Install `enforce-react-spa-architecture` together with this skill.
+- Install `react-router-prisma-app-architecture` together with this skill.
 - Use this skill only after the companion skill has established code structure, UI guardrails, and verification boundaries.
 - Keep Azure-specific concerns here and keep app-code architecture in the companion skill.
 
@@ -72,9 +72,9 @@ When the task is primarily GitHub Copilot coding agent Azure access, load [`../g
 ## Use Sibling Skills Instead For
 
 - end-user auth, redirect URIs, cookie or PKCE contract, and app registration updates:
-  [`../azure-spa-entra-auth/SKILL.md`](../azure-spa-entra-auth/SKILL.md)
+  [`../entra-user-auth-registration/SKILL.md`](../entra-user-auth-registration/SKILL.md)
 - GitHub Copilot coding agent `copilot` Environment, Azure MCP, and read-scoped cloud access:
-  [`../github-copilot-azure-access/SKILL.md`](../github-copilot-azure-access/SKILL.md)
+  [`../copilot-azure-cloud-access/SKILL.md`](../copilot-azure-cloud-access/SKILL.md)
 - spec-first planning:
   [`../../../planning/spec-driven-workflow/SKILL.md`](../../../planning/spec-driven-workflow/SKILL.md)
 
@@ -133,7 +133,7 @@ When the task is primarily GitHub Copilot coding agent Azure access, load [`../g
 
 ## References
 
-- base architecture skill: [`../enforce-react-spa-architecture/SKILL.md`](../enforce-react-spa-architecture/SKILL.md)
+- base architecture skill: [`../react-router-prisma-app-architecture/SKILL.md`](../react-router-prisma-app-architecture/SKILL.md)
 - Azure hosting baseline: [`references/azure-platform-bootstrap.md`](references/azure-platform-bootstrap.md)
 - Azure identity and SQL overview: [`references/azure-identity-and-sql.md`](references/azure-identity-and-sql.md)
 - Azure SQL identity and permissions: [`references/azure-sql-identity-and-permissions.md`](references/azure-sql-identity-and-permissions.md)
@@ -142,5 +142,5 @@ When the task is primarily GitHub Copilot coding agent Azure access, load [`../g
 - release delivery: [`references/github-release-delivery.md`](references/github-release-delivery.md)
 - operational checklist: [`references/operational-checklist.md`](references/operational-checklist.md)
 - template inventory: [`references/template-assets.md`](references/template-assets.md)
-- auth sibling skill: [`../azure-spa-entra-auth/SKILL.md`](../azure-spa-entra-auth/SKILL.md)
-- Copilot sibling skill: [`../github-copilot-azure-access/SKILL.md`](../github-copilot-azure-access/SKILL.md)
+- auth sibling skill: [`../entra-user-auth-registration/SKILL.md`](../entra-user-auth-registration/SKILL.md)
+- Copilot sibling skill: [`../copilot-azure-cloud-access/SKILL.md`](../copilot-azure-cloud-access/SKILL.md)

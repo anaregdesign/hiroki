@@ -1,9 +1,9 @@
 ---
-name: azure-spa-entra-auth
-description: "Own Microsoft Entra ID end-user auth contracts and app registration guidance for React Router + Prisma v7 web apps that already follow enforce-react-spa-architecture. Use when the work is primarily `web` vs `spa` auth choice, redirect URIs, cookie vs PKCE boundary, local sign-in path, test users, or Azure CLI or `az rest` app-registration updates. Do not use this skill for general Azure hosting topology, GitHub release delivery, or GitHub Copilot coding agent cloud access."
+name: entra-user-auth-registration
+description: "Own end-user Microsoft Entra ID auth contract design and app registration updates for React Router + Prisma web apps. Use when the request mentions Microsoft Entra ID login, Azure AD login, Microsoft auth, redirect URI, callback URL, signInAudience, `web` vs `spa` registration, PKCE, cookie session, localhost login, test users, `az ad app`, `az rest`, or app-registration updates. Do not use this skill for Azure hosting topology, secretless runtime config, production release delivery, or GitHub Copilot coding agent cloud access."
 ---
 
-# Azure Spa Entra Auth
+# Entra User Auth Registration
 
 ## Overview
 
@@ -15,12 +15,12 @@ This skill owns:
 - local sign-in path, dev or test registration hygiene, and test identities
 - Azure CLI or `az rest` based app-registration changes for this app
 
-This skill does not own Azure hosting topology, secretless runtime config, or GitHub release delivery. Combine it with [`../azure-spa-clean-architecture-bootstrap/SKILL.md`](../azure-spa-clean-architecture-bootstrap/SKILL.md) when auth work also changes hosted runtime or deployment setup.
+This skill does not own Azure hosting topology, secretless runtime config, or GitHub release delivery. Combine it with [`../azure-app-platform-delivery/SKILL.md`](../azure-app-platform-delivery/SKILL.md) when auth work also changes hosted runtime or deployment setup.
 
 ## Companion Skill Requirement
 
-- Install `enforce-react-spa-architecture` together with this skill.
-- Add [`../azure-spa-clean-architecture-bootstrap/SKILL.md`](../azure-spa-clean-architecture-bootstrap/SKILL.md) when auth changes also affect Azure hosting, runtime identity, or release flow.
+- Install `react-router-prisma-app-architecture` together with this skill.
+- Add [`../azure-app-platform-delivery/SKILL.md`](../azure-app-platform-delivery/SKILL.md) when auth changes also affect Azure hosting, runtime identity, or release flow.
 
 ## Quick Start
 
@@ -49,7 +49,7 @@ This skill does not own Azure hosting topology, secretless runtime config, or Gi
 
 ## References
 
-- base architecture skill: [`../enforce-react-spa-architecture/SKILL.md`](../enforce-react-spa-architecture/SKILL.md)
-- Azure platform and delivery sibling: [`../azure-spa-clean-architecture-bootstrap/SKILL.md`](../azure-spa-clean-architecture-bootstrap/SKILL.md)
+- base architecture skill: [`../react-router-prisma-app-architecture/SKILL.md`](../react-router-prisma-app-architecture/SKILL.md)
+- Azure platform and delivery sibling: [`../azure-app-platform-delivery/SKILL.md`](../azure-app-platform-delivery/SKILL.md)
 - auth runtime contracts: [`references/entra-user-auth-and-runtime-contracts.md`](references/entra-user-auth-and-runtime-contracts.md)
 - Azure CLI app-registration flow: [`references/entra-app-registration-cli.md`](references/entra-app-registration-cli.md)
