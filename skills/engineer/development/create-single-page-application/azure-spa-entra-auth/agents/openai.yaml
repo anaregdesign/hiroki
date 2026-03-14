@@ -1,0 +1,4 @@
+interface:
+  display_name: "Azure SPA Entra Auth"
+  short_description: "Own end-user Entra auth contracts and app registration flow"
+  default_prompt: "Use $azure-spa-entra-auth together with $enforce-react-spa-architecture when the work is primarily end-user Microsoft Entra ID auth contract design, redirect URIs, local sign-in, or Azure CLI or az rest app-registration changes for this React Router + Prisma app. Combine it with $azure-spa-clean-architecture-bootstrap when auth work also changes hosted runtime or delivery."

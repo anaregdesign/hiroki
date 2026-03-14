@@ -29,12 +29,10 @@ Use this reference when creating or hardening the target GitHub repository for A
 ## GitHub Environments
 
 - Create a `production` Environment for release deploys.
-- Create a separate `copilot` Environment when GitHub Copilot coding agent needs cloud-side Azure access.
 - Store deployment IDs and non-secret config as Environment variables, not as repo-wide secrets.
 - Store only actual secrets as Environment secrets.
 - Prefer Azure App Configuration and Key Vault as the runtime config stores rather than expanding GitHub-hosted variables into an `.env`-style runtime source of truth.
 - Add protection rules when production deploys should require approval.
-- Do not put `production` deploy credentials into the `copilot` Environment.
 - Keep the OIDC federated credential subject aligned with the repository and Environment name.
 - Keep release workflow names and Environment names stable once the OIDC subject is issued, or rotate the federated credential deliberately.
 
@@ -45,14 +43,6 @@ Use this reference when creating or hardening the target GitHub repository for A
 - `AZURE_SUBSCRIPTION_ID`
 - `AZURE_RESOURCE_GROUP`
 - `AZURE_APP_NAME`
-
-## Recommended `copilot` Environment Variables
-
-- `AZURE_CLIENT_ID`
-- `AZURE_TENANT_ID`
-- `AZURE_SUBSCRIPTION_ID`
-- `AZURE_RESOURCE_GROUP` when the agent should verify or inspect one primary resource group
-- Prefer Environment variables for these non-secret identifiers, unless an organization policy standardizes them as secrets.
 
 ## Optional Environment Secrets
 
@@ -93,12 +83,9 @@ Use this reference when creating or hardening the target GitHub repository for A
 
 - Create the target Azure Resource Group before the release workflow attempts `az deployment group create`.
 - Create the GitHub `production` Environment and populate the required Environment variables.
-- Create the GitHub `copilot` Environment and populate only the Azure values needed for cloud-side Copilot development if the repository will use GitHub Copilot coding agent with Azure.
 - Create any optional registry variables or secrets only when the runtime cannot avoid them.
 - Create the Microsoft Entra application, Service Principal, and federated credential for GitHub OIDC.
-- Prefer a separate User Assigned Managed Identity plus federated credential for GitHub Copilot coding agent Azure access, following the `azd coding-agent config` baseline.
 - Grant the deploy identity the required Azure RBAC at the intended scope.
-- Grant the Copilot coding-agent identity only the Azure read scope it needs, usually `Reader` on the target resource group.
 - Populate app-specific Azure App Configuration keys, Key Vault secrets, callback URLs, and any authentication registration values that cannot be derived generically.
 - Publish the GitHub Release that triggers the workflow, unless another automation layer creates releases on the user's behalf.
 
@@ -113,18 +100,10 @@ Use this section for human operators. Do not confuse these permissions with the 
 - Azure: none, if bootstrap is already complete and the workflow deploys through its own OIDC identity.
 - Microsoft Entra ID: none, if bootstrap is already complete.
 
-### Day-To-Day Copilot User
-
-- GitHub: `write` permission is enough to delegate work to GitHub Copilot coding agent after repository administrators finish the setup.
-- GitHub: repository `admin` is still required for configuring the `copilot` Environment or the MCP configuration itself.
-- Azure: none, if bootstrap is already complete and Copilot coding agent uses its own OIDC identity.
-- Microsoft Entra ID: none, if bootstrap is already complete.
-
 ### Bootstrap Operator
 
 - GitHub: `admin` access is the practical minimum when the repository uses GitHub Environments, because repository admins configure Environments and organization-repository Environment secrets or variables require `admin` access. For a personal-account repository, the repository owner is the equivalent minimum.
 - GitHub: if repository-level or Environment-level Actions settings are overridden by organization policy, involve the organization admin instead of widening repository permissions ad hoc.
-- GitHub: repository `admin` is also required to configure the `copilot` Environment and repository-level Copilot coding-agent MCP settings.
 - Microsoft Entra ID: if the tenant still allows member users to register applications, a normal member user may be enough to create a new app registration they own.
 - Microsoft Entra ID: if `Users can register applications` is disabled, `Application Developer` is the least built-in role that restores app-registration creation without using a broader app-admin role.
 - Microsoft Entra ID: if the OIDC application already exists, `Application Owner` on that application is enough to manage that application's federated credentials.
@@ -132,14 +111,12 @@ Use this section for human operators. Do not confuse these permissions with the 
 - Azure: `Contributor` at subscription scope is the practical minimum when the same person must create the target Resource Group, because resource-group creation requires `Microsoft.Resources/subscriptions/resourceGroups/write`.
 - Azure: `Role Based Access Control Administrator` at the deployment scope is the least built-in role for granting Azure RBAC to the deploy identity. `User Access Administrator` also works, but this skill prefers `Role Based Access Control Administrator` where possible.
 - Azure: this template creates Azure RBAC assignments in `infra/main.bicep`, so `Contributor` alone is not enough for full bootstrap.
-- Azure: if the repository uses GitHub Copilot coding agent with Azure, prefer a separate managed identity for that agent and assign only `Reader` at resource-group scope by default.
 - Azure: if the same person must populate runtime config, add only the data-plane roles actually needed, such as `App Configuration Data Owner` and `Key Vault Secrets Officer`.
 
 ### Practical Minimum For This Skill
 
 - One bootstrap operator: GitHub `admin`, Microsoft Entra ID `Application Developer` or existing-app `Application Owner`, Azure `Contributor` plus `Role Based Access Control Administrator`.
 - One day-to-day releaser: GitHub `push` access only, unless Environment approval rules add a separate reviewer step.
-- One day-to-day Copilot user: GitHub `write` permission only after the repository administrator has finished `copilot` Environment and MCP setup.
 - If the bootstrap operator also seeds App Configuration or Key Vault, add only the minimum data-plane role for that store instead of broad subscription access.
 
 ### Least-Privilege Notes
@@ -153,8 +130,6 @@ Use this section for human operators. Do not confuse these permissions with the 
 - GitHub Environments: [Managing environments for deployment](https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments)
 - GitHub secrets and variables: [Using secrets in GitHub Actions](https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-secrets)
 - GitHub Releases permissions: [REST API endpoints for releases](https://docs.github.com/en/rest/releases/releases)
-- GitHub Copilot coding-agent environment setup: [Customizing the development environment for GitHub Copilot coding agent](https://docs.github.com/en/copilot/how-tos/agents/copilot-coding-agent/customizing-the-development-environment-for-copilot-coding-agent)
-- GitHub Copilot coding-agent admin and write-access rules: [Extending GitHub Copilot coding agent with the Model Context Protocol (MCP)](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/coding-agent/extend-coding-agent-with-mcp) and [Adding GitHub Copilot coding agent to your organization](https://docs.github.com/en/copilot/managing-copilot/managing-github-copilot-in-your-organization/adding-copilot-coding-agent-to-organization)
 - Microsoft Entra app-registration delegation: [Delegate application management administrator permissions](https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/delegate-app-roles)
 - Microsoft Entra app-registration quickstart: [How to register an app in Microsoft Entra ID](https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app)
 - Microsoft Entra role reference: [Microsoft Entra built-in roles](https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/permissions-reference)

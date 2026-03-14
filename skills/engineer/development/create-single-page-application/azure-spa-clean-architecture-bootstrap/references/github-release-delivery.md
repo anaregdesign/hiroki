@@ -15,7 +15,6 @@ Use this reference when the app needs GitHub-based CI/CD, GitHub Actions OIDC, c
 
 - Prefer GitHub Actions OIDC over Azure client secrets.
 - Use a dedicated `Microsoft Entra ID` application and Service Principal for GitHub deployment. Keep it separate from runtime Managed Identity and from migration or admin identities.
-- Keep any GitHub Copilot coding-agent Azure identity separate from the release deploy identity.
 - Create one federated credential per GitHub Environment when environments have different blast radius, approval rules, or Azure scopes.
 - Keep the default GitHub Environment subject format unless the organization deliberately standardizes a custom `sub` template.
 - The common production subject is `repo:<owner>/<repo>:environment:production`.

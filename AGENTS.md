@@ -16,7 +16,9 @@
 | Repository skill | Repository path | Codex Home skill | Codex Home path | Link target | Status |
 | --- | --- | --- | --- | --- | --- |
 | `azure-spa-clean-architecture-bootstrap` | `skills/engineer/development/create-single-page-application/azure-spa-clean-architecture-bootstrap/SKILL.md` | `azure-spa-clean-architecture-bootstrap` | `/Users/hiroki/.codex/skills/azure-spa-clean-architecture-bootstrap` | `/Users/hiroki/projects/hiroki/skills/engineer/development/create-single-page-application/azure-spa-clean-architecture-bootstrap` | `symlink` |
+| `azure-spa-entra-auth` | `skills/engineer/development/create-single-page-application/azure-spa-entra-auth/SKILL.md` | `azure-spa-entra-auth` | `/Users/hiroki/.codex/skills/azure-spa-entra-auth` | `/Users/hiroki/projects/hiroki/skills/engineer/development/create-single-page-application/azure-spa-entra-auth` | `symlink` |
 | `enforce-react-spa-architecture` | `skills/engineer/development/create-single-page-application/enforce-react-spa-architecture/SKILL.md` | `enforce-react-spa-architecture` | `/Users/hiroki/.codex/skills/enforce-react-spa-architecture` | `/Users/hiroki/projects/hiroki/skills/engineer/development/create-single-page-application/enforce-react-spa-architecture` | `symlink` |
+| `github-copilot-azure-access` | `skills/engineer/development/create-single-page-application/github-copilot-azure-access/SKILL.md` | `github-copilot-azure-access` | `/Users/hiroki/.codex/skills/github-copilot-azure-access` | `/Users/hiroki/projects/hiroki/skills/engineer/development/create-single-page-application/github-copilot-azure-access` | `symlink` |
 | `spec-driven-workflow` | `skills/engineer/planning/spec-driven-workflow/SKILL.md` | `spec-driven-workflow` | `/Users/hiroki/.codex/skills/spec-driven-workflow` | `/Users/hiroki/projects/hiroki/skills/engineer/planning/spec-driven-workflow` | `symlink` |
 
 ## Specification Rules

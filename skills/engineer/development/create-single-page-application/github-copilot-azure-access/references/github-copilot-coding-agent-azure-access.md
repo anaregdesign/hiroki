@@ -41,6 +41,12 @@ Use this reference when the repository should let GitHub Copilot coding agent in
 - If the agent truly needs config or secret inspection, prefer dedicated development or staging stores with scrubbed data.
 - If data-plane reads are still required, add only the specific read role for that store, such as `App Configuration Data Reader`, and document the blast radius explicitly.
 
+## Minimum Human Permissions
+
+- Day-to-day Copilot task delegator: GitHub `write` permission is enough after a repository administrator has finished the `copilot` Environment and MCP setup.
+- Bootstrap operator: repository `admin` is required to configure the `copilot` Environment and repository-level Copilot coding-agent MCP settings.
+- Azure and Microsoft Entra ID human permissions are only needed during bootstrap. After bootstrap, Copilot coding agent should use its own OIDC-backed identity.
+
 ## GitHub `copilot` Environment Values
 
 - Required for Azure OIDC login:

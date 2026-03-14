@@ -30,7 +30,6 @@ Use this reference when the app needs Azure hosting, Azure-managed secrets, or p
 - Request the private networking plan for App Configuration and Key Vault early when hosted runtime bootstrap depends on them.
 - Request App Configuration and Key Vault access early when the app bootstrap depends on them.
 - Prefer Managed Identity and GitHub Actions OIDC, but if an unavoidable Service Principal is required, request or provision it during bootstrap rather than near release.
-- If the repository will use GitHub Copilot coding agent with Azure, request a separate `copilot` Environment identity early and keep it read-scoped by default.
 
 ## Treat "SPA" Correctly
 

@@ -2,197 +2,134 @@
 
 Skills for the `engineer` persona's `development` workstream.
 
-Each skill in this subtree conforms to the [agentskills.io](https://agentskills.io/) specification.
-
 ## Hierarchy
 
 - Persona: `engineer`
 - Workstream: `development`
-- Tasks:
+- Task group: `create-single-page-application`
+- Skills:
   - `create-single-page-application/enforce-react-spa-architecture`
   - `create-single-page-application/azure-spa-clean-architecture-bootstrap`
-- Related cross-workstream skill:
+  - `create-single-page-application/azure-spa-entra-auth`
+  - `create-single-page-application/github-copilot-azure-access`
+- Related planning skill:
   - `skills/engineer/planning/spec-driven-workflow`
+
+For the detailed responsibility split inside the SPA task group, read [create-single-page-application/README.md](/Users/hiroki/projects/hiroki/skills/engineer/development/create-single-page-application/README.md).
 
 ## Bootstrap
 
-Bootstrap these skills first when the repository needs the full React Router + Prisma + Azure development stack plus spec-first planning.
+Bootstrap these skills when the repository needs the full React Router + Prisma + Azure stack plus spec-first planning.
 
 ### GitHub Copilot CLI
 
 ```text
-Use GitHub's official `/create-skill` command to create these three project skills under `.github/skills/` for this repository:
+Use GitHub's official /create-skill command to create these project skills under .github/skills/ for this repository:
 
 - https://github.com/anaregdesign/hiroki/tree/main/skills/engineer/development/create-single-page-application/enforce-react-spa-architecture
 - https://github.com/anaregdesign/hiroki/tree/main/skills/engineer/development/create-single-page-application/azure-spa-clean-architecture-bootstrap
+- https://github.com/anaregdesign/hiroki/tree/main/skills/engineer/development/create-single-page-application/azure-spa-entra-auth
+- https://github.com/anaregdesign/hiroki/tree/main/skills/engineer/development/create-single-page-application/github-copilot-azure-access
 - https://github.com/anaregdesign/hiroki/tree/main/skills/engineer/planning/spec-driven-workflow
 
 Requirements:
-- Use `/create-skill` for each skill instead of manually hand-creating the folder tree or retyping the skill contents from scratch.
-- Create `.github/skills/enforce-react-spa-architecture/`
-- Create `.github/skills/azure-spa-clean-architecture-bootstrap/`
-- Create `.github/skills/spec-driven-workflow/`
-- Use the corresponding repository source directory as the canonical content for each generated skill.
-- After `/create-skill` creates a skill, reconcile the generated output so it matches the source directory exactly, including `SKILL.md`, `agents/openai.yaml`, `references/`, `assets/`, and `scripts/` if present.
-- Install `enforce-react-spa-architecture` first, then `azure-spa-clean-architecture-bootstrap`, then `spec-driven-workflow`.
-- Treat `enforce-react-spa-architecture` as the base app-code architecture skill.
-- Treat `azure-spa-clean-architecture-bootstrap` as the Azure extension that depends on `enforce-react-spa-architecture`.
-- Treat `spec-driven-workflow` as an independent spec and planning skill.
-- Preserve relative links between the two SPA skills.
+- Use /create-skill for each skill instead of manually recreating the files.
+- Create .github/skills/enforce-react-spa-architecture/
+- Create .github/skills/azure-spa-clean-architecture-bootstrap/
+- Create .github/skills/azure-spa-entra-auth/
+- Create .github/skills/github-copilot-azure-access/
+- Create .github/skills/spec-driven-workflow/
+- Use the repository source directories as the canonical content for each generated skill.
+- Install enforce-react-spa-architecture first.
+- Install azure-spa-clean-architecture-bootstrap next for Azure hosting, secretless config, IaC, Azure SQL, and GitHub release delivery.
+- Install azure-spa-entra-auth only when the app needs end-user Microsoft Entra ID auth or app-registration changes.
+- Install github-copilot-azure-access only when the repository wants GitHub Copilot coding agent to access Azure from the cloud.
+- Install spec-driven-workflow for non-trivial product work.
+- Create or update .github/copilot-instructions.md.
+- In .github/copilot-instructions.md, instruct Copilot to:
+  - use spec-driven-workflow first for non-trivial application-development work
+  - use enforce-react-spa-architecture for app-code architecture, UI boundaries, and verification
+  - use azure-spa-clean-architecture-bootstrap for Azure hosting, Azure SQL, secretless config, IaC, and GitHub release delivery
+  - add azure-spa-entra-auth only when the task changes end-user auth contract or app registration
+  - add github-copilot-azure-access only when the task changes the copilot Environment, Azure MCP, or Copilot OIDC access
+- Preserve relative links between sibling skills.
 - If destination folders already exist, replace or sync them to the repository version.
-- Create or update `.github/copilot-instructions.md`.
-- In `.github/copilot-instructions.md`, instruct Copilot to call:
-  - `spec-driven-workflow` first for non-trivial application-development work, even when the user asks directly for implementation, to create or update `/docs/spec/`, maintain a temporary `/docs/plans/plan.md`, archive the completed plan as `/docs/plans/plan.YYYYMMDD-HHMMSS.md`, and drive the execution sequence from that workflow
-  - `enforce-react-spa-architecture` after `spec-driven-workflow` when the task changes React Router + Prisma app-code architecture, UI boundaries, or verification
-  - `azure-spa-clean-architecture-bootstrap` only when the task also changes Azure hosting, identity, secretless config, IaC, or release automation, and only as an Azure-specific extension alongside the architecture skill
-- In `.github/copilot-instructions.md`, instruct Copilot to combine the skills by default in this order for non-trivial work:
-  - start with `spec-driven-workflow`
-  - add `enforce-react-spa-architecture` when app-code architecture guidance is needed
-  - add `azure-spa-clean-architecture-bootstrap` only for Azure-specific deltas
-- When finished, list the installed files under `.github/skills/` and show the final `.github/copilot-instructions.md`.
+- When finished, list the installed files under .github/skills/ and show the final .github/copilot-instructions.md.
 ```
 
 ### Codex
 
 ```text
-Use `$skill-installer` to install these three skills into my personal Codex skills directory (`$CODEX_HOME/skills` or `~/.codex/skills`) from this repository:
+Use $skill-installer to install these skills into my personal Codex skills directory ($CODEX_HOME/skills or ~/.codex/skills) from this repository:
 
 - https://github.com/anaregdesign/hiroki/tree/main/skills/engineer/development/create-single-page-application/enforce-react-spa-architecture
 - https://github.com/anaregdesign/hiroki/tree/main/skills/engineer/development/create-single-page-application/azure-spa-clean-architecture-bootstrap
+- https://github.com/anaregdesign/hiroki/tree/main/skills/engineer/development/create-single-page-application/azure-spa-entra-auth
+- https://github.com/anaregdesign/hiroki/tree/main/skills/engineer/development/create-single-page-application/github-copilot-azure-access
 - https://github.com/anaregdesign/hiroki/tree/main/skills/engineer/planning/spec-driven-workflow
 
 Requirements:
-- Install `enforce-react-spa-architecture` first, then `azure-spa-clean-architecture-bootstrap`, then `spec-driven-workflow`.
-- Treat `enforce-react-spa-architecture` as the base architecture skill and `azure-spa-clean-architecture-bootstrap` as its Azure extension.
-- Treat `spec-driven-workflow` as an independent spec and planning skill.
-- Use the full 3-skill set after install:
-  - `spec-driven-workflow` for `/docs/spec/`, `/docs/plans/plan.md`, ordered Section/Subsection planning, deliberate commit-unit planning, and archiving completed plans as `/docs/plans/plan.YYYYMMDD-HHMMSS.md`
-  - `enforce-react-spa-architecture` for React Router + Prisma app-code architecture, UI boundaries, and verification
-  - `azure-spa-clean-architecture-bootstrap` only for Azure-specific hosting, identity, secretless config, IaC, and release automation deltas
-- When a task spans multiple concerns, combine the skills deliberately:
-  - start with `spec-driven-workflow` for spec and plan
-  - use `enforce-react-spa-architecture` as the base coding skill
-  - add `azure-spa-clean-architecture-bootstrap` only when Azure-specific decisions are involved
+- Install enforce-react-spa-architecture first.
+- Install azure-spa-clean-architecture-bootstrap next for Azure platform and release-delivery work.
+- Install azure-spa-entra-auth only when the app needs end-user auth or app-registration changes.
+- Install github-copilot-azure-access only when GitHub Copilot coding agent needs Azure access.
+- Install spec-driven-workflow for non-trivial work that should maintain /docs/spec and /docs/plans/plan.md.
+- Use the full set deliberately:
+  - spec-driven-workflow for spec-first planning
+  - enforce-react-spa-architecture for app-code architecture
+  - azure-spa-clean-architecture-bootstrap for Azure hosting, secretless config, SQL, IaC, and release delivery
+  - azure-spa-entra-auth for end-user Entra auth contract and app registration
+  - github-copilot-azure-access for the copilot Environment, OIDC, Azure MCP, and least-privilege Azure read access
 - Preserve the original folder names.
 - Install from the GitHub repo paths rather than manually retyping the skill contents.
 - If any destination skill already exists, stop and report that instead of overwriting it implicitly.
-- When finished, list the installed paths, confirm all three skills are available, summarize the above usage mapping, and remind me to restart Codex to pick up new skills.
+- When finished, list the installed paths, confirm the skills are available, summarize the above usage mapping, and remind me to restart Codex to pick up new skills.
 ```
 
 ### Claude Code
 
 ```text
-Copy these three skills into the current project's `.claude/skills/` directory:
+Copy these skills into the current project's .claude/skills/ directory:
 
 - https://github.com/anaregdesign/hiroki/tree/main/skills/engineer/development/create-single-page-application/enforce-react-spa-architecture
 - https://github.com/anaregdesign/hiroki/tree/main/skills/engineer/development/create-single-page-application/azure-spa-clean-architecture-bootstrap
+- https://github.com/anaregdesign/hiroki/tree/main/skills/engineer/development/create-single-page-application/azure-spa-entra-auth
+- https://github.com/anaregdesign/hiroki/tree/main/skills/engineer/development/create-single-page-application/github-copilot-azure-access
 - https://github.com/anaregdesign/hiroki/tree/main/skills/engineer/planning/spec-driven-workflow
 
 Requirements:
-- Create `.claude/skills/enforce-react-spa-architecture/`
-- Create `.claude/skills/azure-spa-clean-architecture-bootstrap/`
-- Create `.claude/skills/spec-driven-workflow/`
+- Create .claude/skills/enforce-react-spa-architecture/
+- Create .claude/skills/azure-spa-clean-architecture-bootstrap/
+- Create .claude/skills/azure-spa-entra-auth/
+- Create .claude/skills/github-copilot-azure-access/
+- Create .claude/skills/spec-driven-workflow/
 - Preserve every file and subdirectory exactly.
-- Install `enforce-react-spa-architecture` first, then `azure-spa-clean-architecture-bootstrap`, then `spec-driven-workflow`.
-- Treat `enforce-react-spa-architecture` as the required base skill and `azure-spa-clean-architecture-bootstrap` as the Azure extension.
-- Treat `spec-driven-workflow` as an independent spec and planning skill.
-- Create or update `CLAUDE.md` at the repository root.
-- In `CLAUDE.md`, instruct Claude Code to use:
-  - `spec-driven-workflow` when the task needs `/docs/spec/`, `/docs/plans/plan.md`, ordered Section/Subsection planning, deliberate commit-unit planning, or archived completed plans as `/docs/plans/plan.YYYYMMDD-HHMMSS.md`
-  - `enforce-react-spa-architecture` when the task changes React Router + Prisma app-code architecture, UI boundaries, or verification
-  - `azure-spa-clean-architecture-bootstrap` when the task changes Azure hosting, identity, secretless config, IaC, or release automation
-- In `CLAUDE.md`, instruct Claude Code to combine the skills when a task spans multiple concerns, using `enforce-react-spa-architecture` as the base and `azure-spa-clean-architecture-bootstrap` only for Azure-specific deltas.
+- Install enforce-react-spa-architecture first, then azure-spa-clean-architecture-bootstrap.
+- Add azure-spa-entra-auth only for end-user auth work.
+- Add github-copilot-azure-access only for GitHub Copilot coding agent Azure access.
+- Treat spec-driven-workflow as the independent planning skill.
+- Create or update CLAUDE.md at the repository root.
+- In CLAUDE.md, instruct Claude Code to use:
+  - spec-driven-workflow for spec-first planning
+  - enforce-react-spa-architecture for app-code architecture, UI boundaries, and verification
+  - azure-spa-clean-architecture-bootstrap for Azure hosting, secretless config, SQL, IaC, and release delivery
+  - azure-spa-entra-auth only for end-user auth contract or app-registration changes
+  - github-copilot-azure-access only for the copilot Environment, Azure MCP, or Copilot OIDC access
+- When a task spans multiple concerns, use enforce-react-spa-architecture as the base coding skill, add azure-spa-clean-architecture-bootstrap for Azure platform or delivery concerns, add azure-spa-entra-auth only for end-user auth, and add github-copilot-azure-access only for Copilot cloud-access work.
 - If destination folders already exist, replace or sync them to the repository version.
-- When finished, show the resulting `.claude/skills/` tree and the final `CLAUDE.md`.
+- When finished, show the resulting .claude/skills/ tree and the final CLAUDE.md.
 ```
 
-## Overview
+## Responsibility Summary
 
-This directory currently contains the companion pair for React Router + Prisma SPA architecture and Azure delivery.
-For full bootstrap, combine this subtree with `skills/engineer/planning/spec-driven-workflow`, the independent spec and planning workflow skill.
-
-The companion pair is:
-
-- `enforce-react-spa-architecture`: the base architecture skill
-- `azure-spa-clean-architecture-bootstrap`: the Azure extension skill
-
-The related planning skill is:
-
-- `spec-driven-workflow`: the spec and plan workflow skill under `skills/engineer/planning/`
-
-## Skill Roles
-
-### `enforce-react-spa-architecture`
-
-Role:
-- Owns code structure, dependency direction, module placement, UI guardrails, and pre-push verification for Vite-powered React Router + Prisma v7 apps.
-
-Use this skill for:
-- project bootstrap with React Router + Prisma v7
-- feature implementation and refactoring
-- keeping `app/routes/` thin and `app/components/` presentational
-- `app/lib/client/usecase/` ownership of client orchestration
-- Fluent UI React v9 guidance for new UI work
-- responsive UI, charts, and Playwright verification
-
-This skill does not own:
-- cloud provider choice
-- app registration or identity provisioning
-- secret-store topology
-- IaC or release infrastructure
-
-### `azure-spa-clean-architecture-bootstrap`
-
-Role:
-- Extends `enforce-react-spa-architecture` with Azure hosting, identity, secretless config, IaC, Azure SQL, and GitHub delivery guidance.
-
-Use this skill for:
-- Azure Container Apps, Azure SQL, and Azure topology choices
-- `Microsoft Entra ID` only when end-user authentication is actually required
-- `Managed Identity`, local `DefaultAzureCredential`, Azure App Configuration, and Key Vault guidance
-- Azure CLI or `az rest` app registration flows
-- GitHub Releases, GHCR, GitHub Actions OIDC, and release workflow setup
-
-This skill does not replace:
-- the base architecture rules from `enforce-react-spa-architecture`
-
-### `spec-driven-workflow`
-
-Role:
-- Lives under `skills/engineer/planning/` and documents spec-first planning flow plus shared commit-log workflow for feature work.
-
-Use this skill for:
-- writing complete user-visible requirements under `/docs/spec/`
-- creating and maintaining a temporary execution tracker in `/docs/plans/plan.md`
-- structuring that plan with ordered `Section`, `Subsection`, and optional `Sub-subsection` blocks only as needed
-- breaking work into the shortest meaningful plan checkbox steps
-- keeping commit history in deliberate work units and using Conventional Commits when the repository uses them
-- checking off work as it completes and archiving `/docs/plans/plan.md` as `/docs/plans/plan.YYYYMMDD-HHMMSS.md` when all tracked work is done
-- keeping the temporary plan aligned with the durable spec
-
-This skill is independent:
-- use it on its own for spec-first planning workflow
-- do not treat it as an extension of the SPA or Azure skills
-
-## Dependency Direction
-
-The SPA companion pair has a one-way dependency direction:
-
-```text
-azure-spa-clean-architecture-bootstrap
-  -> enforce-react-spa-architecture
-```
-
-Interpretation:
-- Install `enforce-react-spa-architecture` first.
-- Install `azure-spa-clean-architecture-bootstrap` only as an extension on top of it.
-- Keep base code-level architecture rules in the base skill.
-- Keep Azure, identity, infrastructure, and delivery rules in the Azure skill.
-- Repeat only the most important cross-cutting reminders in both skills when they protect boundary integrity.
-
-## Which To Use
-
-- Use only `enforce-react-spa-architecture` when you need code architecture and implementation guardrails for a React Router + Prisma v7 app without Azure-specific delivery concerns.
-- Use both skills together when the same app must also ship on Azure or needs Azure-specific identity, SQL, config, IaC, or release workflow guidance.
-- Use `spec-driven-workflow` when you want spec-first execution with `/docs/spec/` and a temporary `/docs/plans/plan.md` that is archived as `/docs/plans/plan.YYYYMMDD-HHMMSS.md` after the tracked work finishes.
-- Do not install `azure-spa-clean-architecture-bootstrap` by itself.
+- `enforce-react-spa-architecture`
+  - Owns React Router + Prisma app-code architecture, UI boundaries, and verification.
+- `azure-spa-clean-architecture-bootstrap`
+  - Owns Azure hosting, secretless config, Azure SQL, IaC, and GitHub release delivery.
+  - This stays as one skill because the shared templates, bootstrap flow, and permission model cross-link too much to split cleanly.
+- `azure-spa-entra-auth`
+  - Owns end-user Microsoft Entra ID auth contract and app registration flow.
+- `github-copilot-azure-access`
+  - Owns GitHub Copilot coding agent Azure access through the `copilot` Environment, OIDC, and Azure MCP.
+- `spec-driven-workflow`
+  - Owns spec-first planning and `/docs/spec` plus `/docs/plans/plan.md` maintenance.

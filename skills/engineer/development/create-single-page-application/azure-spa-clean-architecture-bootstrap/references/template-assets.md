@@ -21,33 +21,30 @@ Use this reference when copying files from `assets/templates/` into a target rep
 - `assets/templates/azure.yaml`
 - `assets/templates/Dockerfile`
 - `assets/templates/app/routes/health.ts`
-- `assets/templates/.github/workflows/copilot-setup-steps.yml`
 - `assets/templates/.github/workflows/release-azure-delivery.yml`
 - `assets/templates/scripts/azure/postprovision.sh`
 - `assets/templates/infra/main.bicep`
 
 `assets/templates/infra/main.bicep` is the shared web-runtime baseline template. Extend it with Azure SQL resources only when the target app actually needs relational persistence.
 It keeps the Container App ingress public by default and includes Container Apps VNet integration so the hosted runtime can still reach private endpoints. Extend it with Azure SQL server, database, `Microsoft Entra ID` admin setup, and `Private Endpoint` resources when the target app needs relational persistence. Use App Configuration and Key Vault private endpoints for hosted environments, and add a Container Apps managed environment `Private Endpoint` only when the app ingress must also be private-only.
-`assets/templates/.github/workflows/copilot-setup-steps.yml` is the shared GitHub Copilot coding-agent bootstrap template. It keeps `copilot` Environment OIDC separate from `production`, uses Azure read-only login as the default, and verifies `az` access without turning the coding agent into a deploy identity.
 `assets/templates/.github/workflows/release-azure-delivery.yml` is the shared release workflow template. It expects GitHub Actions OIDC, runs `plan_infra` before `deploy_infra`, skips infra rollout when `what-if` finds no real changes, and reuses `assets/templates/scripts/azure/postprovision.sh` for registry configuration when the runtime needs it.
+For GitHub Copilot coding-agent cloud access, use the sibling skill [`../../github-copilot-azure-access/SKILL.md`](../../github-copilot-azure-access/SKILL.md) and its `copilot-setup-steps.yml` template.
 
 ## Adoption Flow
 
 1. Copy only the files needed for the target repository.
 2. Replace placeholder tokens in the copied files, not in the shared asset files.
 3. Copy the workflow template together with `scripts/azure/postprovision.sh` when the target repo needs the release-delivery baseline.
-4. Copy `assets/templates/.github/workflows/copilot-setup-steps.yml` when the target repo wants GitHub Copilot coding agent to inspect Azure resources from the cloud.
-5. Extend the copied files with Azure App Configuration and Key Vault bootstrap when the target repo follows the secretless config path.
-6. Prefer managed identity wiring for ACR pulls if the copied repo uses ACR.
-7. Align the copied files with the target repo naming, package manager, Environment names, and deploy topology.
-8. Validate each copied file in the target repo before pushing.
+4. Extend the copied files with Azure App Configuration and Key Vault bootstrap when the target repo follows the secretless config path.
+5. Prefer managed identity wiring for ACR pulls if the copied repo uses ACR.
+6. Align the copied files with the target repo naming, package manager, Environment names, and deploy topology.
+7. Validate each copied file in the target repo before pushing.
 
 ## Validation Expectations
 
 - Validate YAML files with a YAML parser.
 - Validate GitHub workflow files with `actionlint`.
 - Validate Bicep files with `az bicep build`.
-- Validate the `copilot` Environment OIDC subject and Azure role scope before first cloud-side Copilot task.
 - Validate the GitHub Environment name and federated credential subject before first release.
 - Validate the `what-if` plan path before first production use.
 - Validate private DNS, VNet link, and `Private Endpoint` resources when relational persistence is enabled.
