@@ -6,12 +6,36 @@ Use this reference before release, after deployment, or when handing work back t
 
 - Confirm which Azure tenant, subscription, and resource scopes are definitely required.
 - Confirm which RBAC assignments are definitely required for developers, runtime identities, migration identities, and deploy identities.
+- Confirm whether bootstrap permissions and day-to-day release permissions can be split so the release operator does not keep standing Azure or Microsoft Entra admin rights.
 - Confirm whether Azure SQL Microsoft Entra admin setup is required.
 - Confirm the VNet, delegated subnet, private-endpoint subnet, private DNS ownership, and `Private Endpoint` approval model for Container Apps to Azure SQL traffic.
 - Confirm whether hosted App Configuration and Key Vault should also be private-only, and how local development will reach them.
 - Confirm whether a GitHub Actions OIDC-backed deploy identity is enough or whether another Service Principal is still required for migration or external automation.
+- Confirm whether GitHub Copilot coding agent also needs a separate `copilot` Environment identity for Azure reads.
 - Confirm whether the infra deploy will create Azure role assignments and therefore needs `Role Based Access Control Administrator` or `User Access Administrator` at the deployment scope.
 - Ask for those prerequisites early so they do not block implementation or release work later.
+
+## User Tasks That GitHub Does Not Replace
+
+- Create the target Azure Resource Group before the first release deployment.
+- Create the GitHub `production` Environment.
+- Create the GitHub `copilot` Environment if cloud-side Copilot tasks should inspect Azure.
+- Populate the required GitHub Environment variables and any optional registry secrets.
+- Create the Microsoft Entra application, Service Principal, and federated credential used by GitHub OIDC.
+- Prefer a separate managed identity plus federated credential for GitHub Copilot coding agent Azure access, and keep it read-scoped by default.
+- Grant the deploy identity the required Azure RBAC, including role-assignment permission when the IaC manages role assignments.
+- Grant the Copilot coding-agent identity only the read roles it actually needs, usually `Reader` on the target resource group.
+- Populate app-specific App Configuration keys, Key Vault secrets, callback URLs, and auth registration details.
+- Publish the GitHub Release that triggers the workflow, unless a separate automation layer creates releases automatically.
+- Use the minimum human-permission split in `references/github-repository-operations.md` so bootstrap operators and day-to-day releasers do not inherit the same standing access by default.
+
+## Minimum Human Permission Review
+
+- Confirm who only needs day-to-day release rights and who actually needs bootstrap rights in GitHub, Microsoft Entra ID, and Azure.
+- Aim for GitHub `push` access only for the routine release operator after bootstrap is complete.
+- Aim for GitHub `write` permission only for the routine Copilot task delegator after bootstrap is complete.
+- Use GitHub `admin`, Microsoft Entra ID app-registration rights, and Azure RBAC-assignment rights only for the bootstrap operator, and prefer time-bound elevation where available.
+- Keep the human operator permissions distinct from the GitHub Actions OIDC deploy identity and the runtime Managed Identity.
 
 ## Before Push
 
@@ -27,8 +51,10 @@ Use this reference before release, after deployment, or when handing work back t
 - Confirm README matches the current architecture and deployment model.
 - Confirm screenshots and callback URLs are current.
 - Confirm GitHub Environment variables and Azure-side identities exist.
+- Confirm the `copilot` Environment and its Azure identity exist when GitHub Copilot coding agent should inspect Azure.
 - Confirm the GitHub Environment name matches the federated credential subject exactly.
 - Confirm App Configuration keys and Key Vault secrets match the runtime config contract.
+- Confirm the Copilot coding-agent Azure role scope is still read-only unless the repository intentionally widened it.
 - Confirm the `what-if` plan can distinguish app-only releases from real infra changes.
 - When the app requires user authentication, confirm the documented local sign-in path still works with the intended dev or test identities.
 - Confirm the hosted environment uses Azure SQL Database rather than SQLite.
@@ -47,6 +73,7 @@ Use this reference before release, after deployment, or when handing work back t
 - Check the Actions run URL.
 - Check the deployed app URL and the `/health` endpoint.
 - Confirm the intended Azure revision became healthy.
+- If GitHub Copilot coding agent uses Azure, confirm a read-only Copilot task can still inspect the target resource group.
 
 ## After Infrastructure Changes
 

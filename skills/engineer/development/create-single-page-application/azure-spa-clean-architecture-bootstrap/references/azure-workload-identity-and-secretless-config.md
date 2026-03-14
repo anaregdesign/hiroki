@@ -6,6 +6,7 @@ Use this reference when the app needs Azure workload identity, Azure App Configu
 
 - Keep end-user social login separate from Azure workload identity.
 - Use a GitHub Actions federated identity for deployment only.
+- Use a separate GitHub Copilot coding-agent identity for the `copilot` Environment when cloud-side development tasks need Azure access.
 - Use a Container App Managed Identity for deployed runtime access to Azure resources and Azure SQL.
 - When the deployed runtime must reach Azure SQL over `Private Endpoint`, put the Container Apps environment in a delegated VNet subnet and plan a separate subnet for `Private Endpoint` resources plus private DNS linking.
 - Use a separate migration or admin identity for schema changes and elevated SQL work.
@@ -15,6 +16,7 @@ Use this reference when the app needs Azure workload identity, Azure App Configu
 
 - Identify at project start which developer roles are definitely required for local bootstrap, such as App Configuration Data Reader or Key Vault Secrets User.
 - Identify at project start whether the deployment path needs a GitHub OIDC-backed Azure application and Service Principal.
+- Identify at project start whether GitHub Copilot coding agent also needs a separate `copilot` Environment identity for Azure reads, and keep that identity read-scoped by default.
 - Identify at project start whether the deploy workflow will create Azure role assignments and therefore needs `Role Based Access Control Administrator` or `User Access Administrator` at the target scope.
 - Identify at project start whether schema management needs a separate migration identity with elevated SQL permissions.
 - Prefer not to create extra Service Principals, but if one is unavoidable, ask for it early instead of discovering the need during release work.
@@ -56,12 +58,14 @@ Use this reference when the app needs Azure workload identity, Azure App Configu
 - Keep the Azure SQL host name stable in config and let private DNS resolve it inside the Container Apps VNet. Do not switch app code to raw private IP addresses.
 - Keep the hosted App Configuration and Key Vault host names stable in config and let private DNS resolve them in Azure when private endpoints are enabled.
 - Keep GitHub Environment values separate from Azure runtime secrets.
+- Keep the `copilot` Environment separate from the production deploy Environment, and do not give cloud-side Copilot tasks production secret reads by default.
 
 ## Verification
 
 - Verify local development succeeds after `az login` or `azd auth login` with no `.env` file present.
 - Verify the deploy identity can update the Azure hosting resource and nothing broader than necessary.
 - Verify the federated credential subject matches the repository and GitHub Environment that the deploy job uses.
+- Verify any `copilot` Environment identity is separate from the deploy identity and is limited to the intended Azure read scope.
 - Verify each Azure job runs its own OIDC login instead of assuming auth state survives across jobs.
 - Verify local development still works through `DefaultAzureCredential` without claiming that the developer workstation has Managed Identity.
 - Verify the deployed Container Apps environment resolves the Azure SQL server FQDN to the private endpoint IP when private connectivity is required.

@@ -1,6 +1,6 @@
 ---
 name: azure-spa-clean-architecture-bootstrap
-description: "Own Azure platform, identity, secretless config, IaC, and GitHub release automation for React Router + Prisma v7 web apps that already follow enforce-react-spa-architecture. Use when the work is primarily Azure runtime-mode selection, Microsoft Entra ID integration or Azure CLI app registration when end-user authentication is required, Azure Container Apps, local SQLite development with Azure SQL Database for hosted persistence, Azure App Configuration, Key Vault, Managed Identity, local DefaultAzureCredential setup, or GitHub Actions OIDC-backed infrastructure and application deployment workflows. Do not use this skill for spec, planning, or branch-and-PR workflow or for base app-code architecture rules."
+description: "Own Azure platform, identity, secretless config, IaC, and GitHub release automation for React Router + Prisma v7 web apps that already follow enforce-react-spa-architecture. Use when the work is primarily Azure runtime-mode selection, Microsoft Entra ID integration or Azure CLI app registration when end-user authentication is required, Azure Container Apps, local SQLite development with Azure SQL Database for hosted persistence, Azure App Configuration, Key Vault, Managed Identity, local DefaultAzureCredential setup, GitHub Copilot coding agent Azure access, or GitHub Actions OIDC-backed infrastructure and application deployment workflows. Do not use this skill for spec, planning, or branch-and-PR workflow or for base app-code architecture rules."
 ---
 
 # Azure Spa Clean Architecture Bootstrap
@@ -35,8 +35,11 @@ When the app requires user authentication, prefer a real local sign-in path with
    - identify any required SQL admin or migration identity setup
    - identify the required VNet, subnet, private DNS, and `Private Endpoint` design for Container Apps to Azure SQL connectivity, and whether ingress must also be private-only
    - identify whether a GitHub Actions OIDC-backed deploy identity is enough or whether another Service Principal is still required for migration or external automation
+   - identify whether GitHub Copilot coding agent also needs a separate `copilot` Environment identity for Azure reads
    - identify whether the infra deploy creates Azure role assignments and therefore needs deploy-time RBAC beyond ordinary resource management
    - request these prerequisites at project start instead of waiting for release hardening
+   - make explicit which of these tasks GitHub Actions will automate and which still require user bootstrap in GitHub, Microsoft Entra ID, or Azure
+   - separate the minimum human permissions for bootstrap operators from the narrower permissions needed by day-to-day release operators; use `references/github-repository-operations.md` as the authority for that split
 3. Confirm the companion skill is installed:
    - required skill: `enforce-react-spa-architecture`
    - published URL: `https://github.com/anaregdesign/hiroki/tree/main/skills/engineer/development/create-single-page-application/enforce-react-spa-architecture`
@@ -65,6 +68,7 @@ When the app requires user authentication, prefer a real local sign-in path with
    - user auth, runtime contract, and local sign-in path: [`references/entra-user-auth-and-runtime-contracts.md`](references/entra-user-auth-and-runtime-contracts.md)
    - Azure CLI and `az rest` app registration flow: [`references/entra-app-registration-cli.md`](references/entra-app-registration-cli.md)
    - workload identity and secretless config: [`references/azure-workload-identity-and-secretless-config.md`](references/azure-workload-identity-and-secretless-config.md)
+   - GitHub Copilot coding agent Azure access: [`references/github-copilot-coding-agent-azure-access.md`](references/github-copilot-coding-agent-azure-access.md)
    - Azure SQL identity and permissions: [`references/azure-sql-identity-and-permissions.md`](references/azure-sql-identity-and-permissions.md)
    - GitHub repository operations: [`references/github-repository-operations.md`](references/github-repository-operations.md)
    - GitHub release delivery: [`references/github-release-delivery.md`](references/github-release-delivery.md)
@@ -73,11 +77,12 @@ When the app requires user authentication, prefer a real local sign-in path with
 6. Classify the change:
    - route or UI composition
    - Microsoft Entra ID auth or app registration when authentication is required
-   - auth or session boundary
-   - persistence or migration
-   - Azure infrastructure
-   - GitHub workflow or release automation
-   - production verification
+  - auth or session boundary
+  - persistence or migration
+  - Azure infrastructure
+  - GitHub Copilot coding agent or Azure MCP setup
+  - GitHub workflow or release automation
+  - production verification
 
 ## Repository Additions
 
@@ -139,6 +144,7 @@ When the app requires user authentication, prefer a real local sign-in path with
 - Use GitHub Actions OIDC to Azure. Do not store Azure client secrets in GitHub.
 - Prefer Managed Identity and OIDC over Service Principals, but if a Service Principal is definitely required for deploy, migration, or external automation, identify and request it during bootstrap rather than during release stabilization.
 - Keep the GitHub deploy identity separate from the runtime Managed Identity and from any migration or admin identity.
+- Keep any GitHub Copilot coding-agent Azure identity separate from the production deploy identity and read-scoped by default.
 - Scope the federated credential to the exact repository and GitHub Environment. If the organization customizes GitHub OIDC `sub` claims, make the Microsoft Entra federated credential match the customized subject before rollout.
 - If the IaC deploy creates Azure role assignments, request `Microsoft.Authorization/roleAssignments/write` at the deployment scope through `Role Based Access Control Administrator` or `User Access Administrator`. Do not default to `Owner`.
 - Keep repository governance explicit: protected default branch, required checks, and production Environment scoping.
@@ -148,6 +154,9 @@ When the app requires user authentication, prefer a real local sign-in path with
 - Keep infra convergence and app rollout separate even when one workflow orchestrates both.
 - Prefer `what-if`-driven infra skip over file-path heuristics. When infra definitions still require an image parameter, feed `plan_infra` the currently deployed image so app-only releases do not force false infra drift.
 - Do not assume a container-registry push alone rolls out a new Azure Container Apps revision. Keep an explicit `deploy_app` step for the runtime image update.
+- State the remaining user work explicitly: GitHub can run publish, plan, deploy, and smoke-test jobs, but the user still owns initial GitHub Environment setup, OIDC-backed Microsoft Entra bootstrap, Azure RBAC assignment, app-specific config and secret population, auth app-registration details, and the act of publishing a GitHub Release unless another workflow automates that release creation.
+- State the minimum human permissions explicitly: after bootstrap, the routine releaser should usually need only GitHub `push` access, while broader GitHub `admin`, Microsoft Entra ID app-management, or Azure RBAC-assignment roles stay limited to bootstrap operators.
+- When the repository uses GitHub Copilot coding agent with Azure, use a separate GitHub `copilot` Environment, a separate OIDC-backed identity, and `Reader`-scope Azure access by default.
 - Add explicit health endpoints and post-deploy smoke tests.
 - Keep README, callback URLs, configuration contract docs, release notes, and IaC in sync with the deployed system.
 
@@ -165,6 +174,7 @@ When the app requires user authentication, prefer a real local sign-in path with
 - Follow the sibling architecture references before adding cloud features.
 - Keep this skill focused on platform deltas after the companion skill has established code structure, UI rules, and verification gates.
 - Surface the Azure prerequisites now: required RBAC, tenant or subscription access, SQL admin setup, App Configuration or Key Vault access, and any unavoidable Service Principal or federated deploy identity.
+- Surface any GitHub Copilot coding-agent prerequisite now: `copilot` Environment, separate Azure identity, and read-only Azure role scope unless a wider scope is intentionally required.
 - Surface the networking prerequisites now: the Container Apps VNet plan, dedicated subnets, private DNS ownership, Azure SQL `Private Endpoint`, and whether ingress must also be private-only.
 - Ask for these prerequisites before the team gets deep into implementation so platform access does not become a late blocker.
 
@@ -219,13 +229,26 @@ When the app requires user authentication, prefer a real local sign-in path with
 
 - Build and publish the container image on `release.published`.
 - Use one release workflow that sequences `publish`, `plan_infra`, `deploy_infra`, `deploy_app`, and `smoke_test`.
+- Add a separate `.github/workflows/copilot-setup-steps.yml` only when GitHub Copilot coding agent needs cloud-side Azure access.
 - Run `plan_infra` with `what-if` before any infra rollout, and skip `deploy_infra` when the plan reports no real infra change.
 - Deploy infra only after image publish succeeds, and deploy the app only after infra convergence succeeds or infra skip is confirmed.
 - Use GitHub Environment protection for production.
+- Use a separate GitHub `copilot` Environment for Copilot coding agent Azure access, not the production deploy Environment.
 - Keep the OIDC federation subject scoped to the exact repository and Environment, typically `repo:<owner>/<repo>:environment:<environment>`.
 - If the organization enforces a custom OIDC subject template such as `job_workflow_ref`, make the federated credential match it before enabling the workflow.
 - Run `azure/login` in each Azure job that calls Azure. Do not assume auth state survives across jobs.
 - Use GHCR by default unless the platform requires ACR.
+- Document the minimum human permissions explicitly and keep bootstrap rights narrower than the set of people who can publish a release.
+- Call out the user-owned bootstrap that automation does not replace:
+  - create the GitHub `production` Environment and populate the required Environment variables and any optional registry secrets
+  - create the GitHub `copilot` Environment and populate the Azure values needed for cloud-side Copilot development only when that feature is enabled
+  - create the OIDC-backed Microsoft Entra application, Service Principal, and federated credential
+  - create the separate OIDC-backed Copilot identity, preferably as a User Assigned Managed Identity, when GitHub Copilot coding agent needs Azure access
+  - grant Azure RBAC at the required scope, including role-assignment permission when the IaC manages role assignments
+  - keep the Copilot Azure role scope read-only unless the repository intentionally wants Copilot to mutate Azure
+  - create the target Resource Group before the workflow attempts resource-group-scoped deployments
+  - populate app-specific App Configuration keys, Key Vault secrets, callback URLs, and auth registration details
+  - publish the GitHub Release or automate release creation separately if the team wants zero-touch releases
 
 ### 7. Verify before push and before release
 
@@ -234,6 +257,7 @@ When the app requires user authentication, prefer a real local sign-in path with
 - Validate workflow syntax and IaC before release.
 - Verify `what-if` distinguishes app-only releases from real infra reconfiguration.
 - Verify the federated credential subject and the GitHub Environment name still match exactly.
+- Verify any GitHub Copilot coding-agent Azure access still resolves through the separate `copilot` Environment and read-only Azure scope.
 - When the app requires user authentication, verify the documented local sign-in path with the intended dev or test users before release.
 - If local development uses SQLite, verify the deployed environment has switched to Azure SQL Database before release.
 - Verify Container Apps health probes are pointed at the intended HTTP endpoint and succeed under realistic startup time.
@@ -255,6 +279,7 @@ When the app requires user authentication, prefer a real local sign-in path with
 - Need `Microsoft Entra ID` auth contract, callback, or local sign-in guidance when authentication is required: `references/entra-user-auth-and-runtime-contracts.md`
 - Need reproducible Azure CLI or `az rest` app registration setup: `references/entra-app-registration-cli.md`
 - Need secretless server config bootstrap, App Configuration, Key Vault, or local `DefaultAzureCredential` guidance: `references/azure-workload-identity-and-secretless-config.md`
+- Need GitHub Copilot coding agent Azure access or `copilot` Environment OIDC: `references/github-copilot-coding-agent-azure-access.md`
 - Need Azure SQL identity and permission guidance: `references/azure-sql-identity-and-permissions.md`
 - Need server config bootstrap and parsing implementation placement: `app/lib/server/infrastructure/config/` or the narrowest equivalent under `app/lib/server/infrastructure/`
 - Need Azure SQL or SDK adapters implementation placement: `app/lib/server/infrastructure/repositories/` and `app/lib/server/infrastructure/gateways/`
@@ -284,6 +309,7 @@ When the app requires user authentication, prefer a real local sign-in path with
 - user auth, runtime contract, and local sign-in path: [`references/entra-user-auth-and-runtime-contracts.md`](references/entra-user-auth-and-runtime-contracts.md)
 - Azure CLI and `az rest` app registration flow: [`references/entra-app-registration-cli.md`](references/entra-app-registration-cli.md)
 - workload identity and secretless config: [`references/azure-workload-identity-and-secretless-config.md`](references/azure-workload-identity-and-secretless-config.md)
+- GitHub Copilot coding agent Azure access: [`references/github-copilot-coding-agent-azure-access.md`](references/github-copilot-coding-agent-azure-access.md)
 - Azure SQL identity and permissions: [`references/azure-sql-identity-and-permissions.md`](references/azure-sql-identity-and-permissions.md)
 - GitHub repository operations: [`references/github-repository-operations.md`](references/github-repository-operations.md)
 - GitHub release delivery: [`references/github-release-delivery.md`](references/github-release-delivery.md)
